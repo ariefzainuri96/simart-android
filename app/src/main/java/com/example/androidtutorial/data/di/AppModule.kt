@@ -1,9 +1,10 @@
 package com.example.androidtutorial.data.di
 
-import android.app.Application
 import com.example.androidtutorial.data.remote.MyApi
+import com.example.androidtutorial.data.repository.DashboardRepository
 import com.example.androidtutorial.data.repository.DashboardRepositoryImpl
-import com.example.androidtutorial.domain.DashboardRepository
+import com.example.androidtutorial.data.repository.LoginRepository
+import com.example.androidtutorial.data.repository.LoginRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMyApi(): MyApi {
-        val interceptor = HttpLoggingInterceptor();
+        val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
@@ -35,7 +36,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providedDashboardRepository(api: MyApi, appContext: Application): DashboardRepository {
-        return DashboardRepositoryImpl(api, appContext)
+    fun providedDashboardRepository(api: MyApi): DashboardRepository {
+        return DashboardRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providedLoginRepository(api: MyApi): LoginRepository {
+        return LoginRepositoryImpl(api)
     }
 }

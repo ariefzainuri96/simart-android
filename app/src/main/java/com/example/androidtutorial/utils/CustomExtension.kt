@@ -1,7 +1,11 @@
 package com.example.androidtutorial.utils
 
+import android.content.Context
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,3 +22,7 @@ fun <T> AppCompatActivity.collectLatestLifeCycleFlow(flow: Flow<T>, collect: sus
         }
     }
 }
+
+val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "user"
+)

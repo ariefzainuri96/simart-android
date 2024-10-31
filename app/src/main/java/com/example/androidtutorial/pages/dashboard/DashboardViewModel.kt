@@ -3,7 +3,7 @@ package com.example.androidtutorial.pages.dashboard
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidtutorial.domain.DashboardRepository
+import com.example.androidtutorial.data.repository.DashboardRepository
 import com.example.androidtutorial.pages.dashboard.model.NewsModel
 import com.example.androidtutorial.utils.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
