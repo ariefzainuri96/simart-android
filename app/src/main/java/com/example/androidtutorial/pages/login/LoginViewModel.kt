@@ -8,7 +8,7 @@ import com.example.androidtutorial.data.repository.LoginRepository
 import com.example.androidtutorial.pages.login.model.LoginFormModel
 import com.example.androidtutorial.utils.PreferenceKeys
 import com.example.androidtutorial.utils.RequestState
-import com.example.androidtutorial.utils.userPreferencesDataStore
+import com.example.androidtutorial.utils.dataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,35 +35,23 @@ class LoginViewModel @Inject constructor(
         println("Error happening, Error: $throwable")
     }
 
-    fun updateLoginForm(data: LoginFormModel) {
-        _loginForm.value = data
+    fun updateLoginForm(update: LoginFormModel.() -> LoginFormModel) {
+        _loginForm.update {
+            it.update()
+        }
     }
 
     fun login() {
-        println("User -> ${loginForm.value}")
-
         viewModelScope.launch(loginHandler) {
             _loginState.emit(RequestState.LOADING)
 
             delay(1000L)
 
-            application.applicationContext.userPreferencesDataStore.edit { preferences ->
+            application.applicationContext.dataStore.edit { preferences ->
                 preferences[PreferenceKeys.IS_LOGIN] = true
             }
 
             _loginState.emit(RequestState.SUCCESS)
         }
-    }
-
-    private fun checkAuthenticatedUser() {
-        application.applicationContext.userPreferencesDataStore.data.map {
-            val isLogin = it[PreferenceKeys.IS_LOGIN]
-            println("Is User Authenticated -> $isLogin")
-            _loginState.emit(if (isLogin == true) RequestState.SUCCESS else RequestState.IDLE)
-        }
-    }
-
-    init {
-        checkAuthenticatedUser()
     }
 }
