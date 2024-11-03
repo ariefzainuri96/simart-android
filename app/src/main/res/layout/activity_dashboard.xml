@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.dashboard.DashboardActivity"
+    tools:context="simart.umby.android.pages.dashboard.DashboardActivity"
     android:orientation="vertical">
 
     <ImageView
@@ -92,5 +92,45 @@
             app:ci_margin="8dp"
             app:ci_drawable="@drawable/circle_indicator_selected"
             app:ci_drawable_unselected="@drawable/circle_indicator_unselected"/>
+
+        <!-- menus -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/dashboard_menu_bg">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menuRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+
+                android:background="@drawable/scan_qr_bg">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_scan_qr"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan QR Code"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sf_pro_600"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

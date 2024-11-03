@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.login.LoginActivity">
+    tools:context="simart.umby.android.pages.login.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:textColor="@color/textPrimary"
             android:textAlignment="center"/>
 
-        <com.example.androidtutorial.component.CustomTextEdit
+        <simart.umby.android.component.CustomTextEdit
             android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:layout_marginTop="16dp"
             />
 
-        <com.example.androidtutorial.component.CustomTextEdit
+        <simart.umby.android.component.CustomTextEdit
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

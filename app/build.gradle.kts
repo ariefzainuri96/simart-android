@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.androidtutorial"
+    namespace = "simart.umby.android"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.androidtutorial"
+        applicationId = "simart.umby.android"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
@@ -57,7 +57,6 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity-ktx:1.9.3")
-    implementation("androidx.activity:activity:1.9.3")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")

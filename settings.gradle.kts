@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AndroidTutorial"
+rootProject.name = "Simart Umby"
 include(":app")
