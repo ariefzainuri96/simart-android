@@ -2,6 +2,7 @@ package simart.umby.android.pages.dashboard
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,15 +13,35 @@ import simart.umby.android.databinding.ActivityDashboardBinding
 import simart.umby.android.pages.dashboard.adapter.MenuAdapter
 import simart.umby.android.pages.dashboard.adapter.NewsViewPagerAdapter
 import simart.umby.android.pages.dashboard.model.MenuModel
+import simart.umby.android.pages.scanner.ScannerActivity
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
+import simart.umby.android.utils.cameraPermissionRequest
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 import simart.umby.android.utils.dpToPx
+import simart.umby.android.utils.isPermissionGranted
+import simart.umby.android.utils.openPermissionSetting
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
+
+    private val cameraPermission = android.Manifest.permission.CAMERA
+
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            startScanner()
+        }
+    }
+
+    private fun startScanner() {
+        ScannerActivity.startScanner(this) { barcodes ->
+            barcodes.forEachIndexed { index, barcode ->
+                println("Scanned QR ${index + 1}: ${barcode.valueType} -> ${barcode.rawValue}")
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +57,33 @@ class DashboardActivity : AppCompatActivity() {
         setMenuRecyclerView()
     }
 
+    private fun requestCameraAndStartScanner() {
+        if (isPermissionGranted(cameraPermission)) {
+            startScanner()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
+    private fun requestCameraPermission() {
+        when {
+            shouldShowRequestPermissionRationale(cameraPermission) -> {
+                cameraPermissionRequest {
+                    openPermissionSetting()
+                }
+            }
+            else -> {
+                requestPermissionLauncher.launch(cameraPermission)
+            }
+        }
+    }
+
     private fun setupView() {
         Utils.Companion.setStatusBarTransparent(this, binding.root)
+
+        binding.scanQRLayout.setOnClickListener {
+            requestCameraAndStartScanner()
+        }
     }
 
     private fun observeData() {
@@ -82,10 +128,8 @@ class DashboardActivity : AppCompatActivity() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-
                     // use position to get the page
                 }
-
             }
         )
 
