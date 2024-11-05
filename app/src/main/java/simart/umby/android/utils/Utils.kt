@@ -1,6 +1,8 @@
 package simart.umby.android.utils
 
 import android.app.Activity
+import android.os.Build
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.FragmentActivity
 import simart.umby.android.R
 
 enum class InputType {
@@ -65,6 +68,22 @@ class Utils {
                     WindowInsetsCompat.CONSUMED
                 }
             }
+        }
+
+        fun getWindowHeight(activity: FragmentActivity?): Int {
+            val displayMetrics = DisplayMetrics()
+
+            activity?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    @Suppress("DEPRECATION")
+                    it.display?.getRealMetrics(displayMetrics)
+                } else {
+                    @Suppress("DEPRECATION")
+                    it.windowManager.defaultDisplay.getMetrics(displayMetrics)
+                }
+            }
+
+            return displayMetrics.heightPixels
         }
     }
 }

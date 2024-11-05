@@ -25,9 +25,7 @@
         app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="1dp"
-        app:errorTextAppearance="@font/sf_pro_400"
-        >
-
+        app:errorTextAppearance="@font/sf_pro_400">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input"
             android:layout_width="match_parent"

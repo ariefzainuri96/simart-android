@@ -12,10 +12,6 @@ import com.google.android.material.textfield.TextInputEditText
 import simart.umby.android.R
 import simart.umby.android.databinding.CustomTextEditBinding
 
-/**
- * TODO: document your custom view class.
- */
-
 class CustomTextEdit @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
