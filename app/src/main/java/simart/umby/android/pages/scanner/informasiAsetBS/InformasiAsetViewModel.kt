@@ -1,4 +1,4 @@
-package simart.umby.android.pages.scanner.informasiasetbs
+package simart.umby.android.pages.scanner.informasiAsetBS
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

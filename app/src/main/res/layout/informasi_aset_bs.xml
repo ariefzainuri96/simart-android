@@ -1,29 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/counter"
+        <simart.umby.android.component.CustomAppbarBS
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Testing"/>
+            app:title="Informasi Aset"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top">
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:layout_marginTop="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/noPO"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="No. PO"/>
 
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/noGRInvoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="No. GR/Invoice"
+                        android:layout_marginTop="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aset SPK"
+                        android:fontFamily="@font/sf_pro_500"
+                        android:textSize="14sp"
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/primary"/>
+
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/noSPK"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="No. SPK"
+                        android:layout_marginTop="16dp"/>
+
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/vendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Vendor"
+                        android:layout_marginTop="16dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@color/border2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/tipeAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Tipe Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/noInventaris"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="No. Inventaris"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/noBBK"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="No. BBK"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/namaAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Nama Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/deskripsiAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Deskripsi Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/spesifikasiAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Spesifikasi Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/kategoriAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Kategori Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/subKategoriAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Sub Kategori Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/kampus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Kampus"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/ruang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Ruang"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/convidentality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Convidentality"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/integrity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Integrity"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/availability"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Availability"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/tanggalAkuisisi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Tanggal Akuisisi"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/tanggalDepresiasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Tanggal Depresiasi"
+                        android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Aset Terdepresiasi"
+                        android:fontFamily="@font/sf_pro_500"
+                        android:textColor="@color/primary"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/sumberAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Sumber Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/jumlahAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Jumlah Aset"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/nvb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="NVB"
+                        android:layout_marginTop="16dp"/>
+                    <simart.umby.android.component.CustomTitleContent
+                        android:id="@+id/statusAset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:title="Status Aset"
+                        android:layout_marginVertical="16dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

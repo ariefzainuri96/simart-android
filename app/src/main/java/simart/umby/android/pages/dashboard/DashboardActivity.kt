@@ -14,7 +14,7 @@ import simart.umby.android.pages.dashboard.adapter.MenuAdapter
 import simart.umby.android.pages.dashboard.adapter.NewsViewPagerAdapter
 import simart.umby.android.pages.dashboard.model.MenuModel
 import simart.umby.android.pages.scanner.ScannerActivity
-import simart.umby.android.pages.scanner.informasiasetbs.InformasiAsetBS
+import simart.umby.android.pages.scanner.informasiAsetBS.InformasiAsetBS
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.cameraPermissionRequest
