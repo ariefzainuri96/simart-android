@@ -1,11 +1,15 @@
 package simart.umby.android.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,6 +40,25 @@ fun <T> BottomSheetDialogFragment.collectLatestLifeCycleFlow(flow: Flow<T>, coll
         repeatOnLifecycle(Lifecycle.State.STARTED) {
             flow.collectLatest(collect)
         }
+    }
+}
+
+@SuppressLint("ObsoleteSdkInt", "InternalInsetResource")
+fun AppCompatActivity.getStatusBarHeight(): Int {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            Resources.getSystem().getDimensionPixelSize(resourceId)
+        } else {
+            0
+        }
+    } else {
+        // For pre-Marshmallow devices, calculate the height in dp
+        TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            24f,
+            Resources.getSystem().displayMetrics
+        ).toInt()
     }
 }
 

@@ -1,18 +1,23 @@
 package simart.umby.android.pages.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import simart.umby.android.databinding.ActivityDashboardBinding
 import simart.umby.android.pages.dashboard.adapter.MenuAdapter
 import simart.umby.android.pages.dashboard.adapter.NewsViewPagerAdapter
 import simart.umby.android.pages.dashboard.model.MenuModel
+import simart.umby.android.pages.manajemen_inventaris.ManajemenInventarisActivity
 import simart.umby.android.pages.scanner.ScannerActivity
 import simart.umby.android.pages.scanner.informasiAsetBS.InformasiAsetBS
 import simart.umby.android.utils.RequestState
@@ -38,8 +43,19 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun startScanner() {
         ScannerActivity.startScanner(this) { barcodes ->
-            barcodes.forEachIndexed { index, barcode ->
-                println("Scanned QR ${index + 1}: ${barcode.valueType} -> ${barcode.rawValue}")
+            if (barcodes.isNotEmpty() && barcodes.first().rawValue != null) {
+                println("scannedQrCode => ${barcodes.first().rawValue}")
+
+                lifecycleScope.launch {
+                    // add delay to wait until scanner activity is closed
+                    delay(500L)
+
+                    println("goToInformasiAset")
+
+                    val dialog = InformasiAsetBS(barcodes.first().rawValue!!)
+
+                    dialog.show(supportFragmentManager, InformasiAsetBS::class.java.simpleName)
+                }
             }
         }
     }
@@ -83,17 +99,14 @@ class DashboardActivity : AppCompatActivity() {
         Utils.Companion.setStatusBarTransparent(this, binding.root)
 
         binding.scanQRLayout.setOnClickListener {
-//            requestCameraAndStartScanner()
-
-            val dialog = InformasiAsetBS()
-
-            dialog.show(supportFragmentManager, InformasiAsetBS::class.java.simpleName)
+            requestCameraAndStartScanner()
         }
     }
 
     private fun observeData() {
         collectLatestLifeCycleFlow(viewModel.newsState) { state ->
             binding.newsLoading.visibility = if (state == RequestState.LOADING) View.VISIBLE else View.GONE
+            binding.errorLayout.visibility = if (state == RequestState.ERROR) View.VISIBLE else View.GONE
 
             if (state == RequestState.SUCCESS) {
                 setupNewsViewPager()
@@ -109,7 +122,7 @@ class DashboardActivity : AppCompatActivity() {
                 model: MenuModel
             ) {
                 when (position) {
-                    0 -> println("Manajemen Invetaris")
+                    0 -> startActivity(Intent(this@DashboardActivity, ManajemenInventarisActivity::class.java))
                     1 -> println("Manajemen Barang Pakai Habis")
                     2 -> println("Manajemen Aset")
                     3-> println("Manajemen Task Approval")

@@ -82,6 +82,29 @@
                 android:indeterminateTintMode="src_atop"
                 android:indeterminateTint="@color/white"
                 />
+            <LinearLayout
+                android:id="@+id/errorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:visibility="invisible">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/white"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/sf_pro_500"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:text="Gagal mendapatkan data,\nUlangi?"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
         </FrameLayout>
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/newsIndicator"

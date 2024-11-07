@@ -10,7 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import simart.umby.android.databinding.InformasiAsetBsBinding
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 
-class InformasiAsetBS: BottomSheetDialogFragment() {
+class InformasiAsetBS(
+    private val rawValue: String
+): BottomSheetDialogFragment() {
 
 //    private val viewModel: InformasiAsetViewModel by viewModels()
     private lateinit var binding: InformasiAsetBsBinding
@@ -42,6 +44,8 @@ class InformasiAsetBS: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        println("rawValue => $rawValue")
 
 //        collectLatestLifeCycleFlow(viewModel.counter) {
 //            binding.counter.text = "$it"
