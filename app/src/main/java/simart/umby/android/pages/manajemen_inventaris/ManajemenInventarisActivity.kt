@@ -1,9 +1,11 @@
 package simart.umby.android.pages.manajemen_inventaris
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import simart.umby.android.databinding.ActivityManajemenInventarisBinding
+import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.DataBarangAsetActivity
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.getStatusBarHeight
 
@@ -27,12 +29,14 @@ class ManajemenInventarisActivity : AppCompatActivity() {
         binding.toolbarLayout.setPadding(0, getStatusBarHeight(), 0, 0)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
 
-        binding.dataBarangAset.setOnClickListener {}
+        binding.dataBarangAset.setOnClickListener {
+            startActivity(Intent(this@ManajemenInventarisActivity, DataBarangAsetActivity::class.java))
+        }
+
         binding.dataBarangHabisPakai.setOnClickListener {}
     }
 }

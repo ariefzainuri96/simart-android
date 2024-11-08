@@ -22,6 +22,9 @@
         android:theme="@style/Theme.AndroidTutorial"
         tools:targetApi="31">
         <activity
+            android:name=".pages.manajemen_inventaris.data_barang_aset.DataBarangAsetActivity"
+            android:exported="false" />
+        <activity
             android:name=".pages.manajemen_inventaris.ManajemenInventarisActivity"
             android:exported="false" />
         <activity
