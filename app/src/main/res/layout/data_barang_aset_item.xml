@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="6dp"
-    app:cardBackgroundColor="@color/white">
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="16dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_more_vertical"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -102,7 +104,8 @@
                 android:id="@+id/deskripsi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet consectetur. Dignissim lacus gravida porttitor potenti justo. "/>
+                android:text=""
+                />
         </simart.umby.android.component.ExpandableView>
 
         <View
@@ -137,8 +140,7 @@
         <simart.umby.android.component.ExpandableView
             android:id="@+id/expandableView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/spesifikasi"
                 android:layout_width="match_parent"

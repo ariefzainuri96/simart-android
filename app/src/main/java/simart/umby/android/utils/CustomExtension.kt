@@ -43,6 +43,11 @@ fun <T> BottomSheetDialogFragment.collectLatestLifeCycleFlow(flow: Flow<T>, coll
     }
 }
 
+fun Context.toPx(dp: Int): Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,
+    dp.toFloat(),
+    resources.displayMetrics).toInt()
+
 @SuppressLint("ObsoleteSdkInt", "InternalInsetResource")
 fun AppCompatActivity.getStatusBarHeight(): Int {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

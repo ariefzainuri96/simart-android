@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
+import simart.umby.android.utils.toPx
 
 class ExpandableView @JvmOverloads constructor(
     context: Context,
@@ -15,6 +16,7 @@ class ExpandableView @JvmOverloads constructor(
 
     private var contentView: View? = null
     var isExpanded = false
+    private var extraMargin: Int = 0
     private var expandedHeight: Int = 0
     private val animationDuration = 300L // Duration of the expand/collapse animation
 
@@ -30,13 +32,6 @@ class ExpandableView @JvmOverloads constructor(
             // if want to show more than 1 child
             contentView = getChildAt(0)
             contentView?.visibility = GONE
-
-//            contentView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-//                override fun onGlobalLayout() {
-//                    contentView?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-//                    expandedHeight = contentView?.measuredHeight ?: 0
-//                }
-//            })
         }
     }
 
@@ -47,11 +42,16 @@ class ExpandableView @JvmOverloads constructor(
             MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         )
-        expandedHeight = contentView?.measuredHeight ?: 0
+        expandedHeight = (contentView?.measuredHeight ?: 0) + context.toPx(extraMargin)
+    }
+
+    fun setExtraMargin(margin: Int) {
+        this.extraMargin = margin
     }
 
     fun setExpanded(expand: Boolean, animate: Boolean = true) {
         if (isExpanded == expand) return
+
         isExpanded = expand
 
         // Measure the expanded height dynamically

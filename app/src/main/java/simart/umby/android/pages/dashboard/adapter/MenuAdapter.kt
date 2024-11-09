@@ -24,8 +24,6 @@ class MenuAdapter(
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layoutParams.setMargins(0, 16, 0, 0)
             binding.root.layoutParams = layoutParams
-
-
         }
     }
 
