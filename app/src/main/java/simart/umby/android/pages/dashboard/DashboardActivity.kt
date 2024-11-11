@@ -20,6 +20,7 @@ import simart.umby.android.pages.dashboard.model.MenuModel
 import simart.umby.android.pages.manajemen_inventaris.ManajemenInventarisActivity
 import simart.umby.android.pages.scanner.ScannerActivity
 import simart.umby.android.pages.scanner.informasiAsetBS.InformasiAsetBS
+import simart.umby.android.pages.task_approval.TaskApprovalActivity
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.cameraPermissionRequest
@@ -125,8 +126,8 @@ class DashboardActivity : AppCompatActivity() {
                     0 -> startActivity(Intent(this@DashboardActivity, ManajemenInventarisActivity::class.java))
                     1 -> println("Manajemen Barang Pakai Habis")
                     2 -> println("Manajemen Aset")
-                    3-> println("Manajemen Task Approval")
-                }
+                    3-> startActivity(Intent(this@DashboardActivity, TaskApprovalActivity::class.java))
+                }   
             }
         })
 

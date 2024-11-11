@@ -22,6 +22,11 @@
         android:theme="@style/Theme.AndroidTutorial"
         tools:targetApi="31">
         <activity
+            android:name=".pages.task_approval.TaskApprovalActivity"
+            android:exported="false"
+            android:label="@string/title_activity_task_approval"
+            android:theme="@style/Theme.AndroidTutorial" />
+        <activity
             android:name=".pages.manajemen_inventaris.data_barang_aset.DataBarangAsetActivity"
             android:exported="false" />
         <activity

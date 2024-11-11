@@ -7,6 +7,9 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -22,6 +25,17 @@ enum class InputType {
 
 class Utils {
     companion object {
+        val FontName = FontFamily(
+            Font(R.font.sf_pro_100, FontWeight.Thin),
+            Font(R.font.sf_pro_200,FontWeight.ExtraLight),
+            Font(R.font.sf_pro_300, FontWeight.Light),
+            Font(R.font.sf_pro_400, FontWeight.Normal),
+            Font(R.font.sf_pro_500, FontWeight.Medium),
+            Font(R.font.sf_pro_600, FontWeight.SemiBold),
+            Font(R.font.sf_pro_700, FontWeight.Bold),
+            Font(R.font.sf_pro_900, FontWeight.Black),
+        )
+
         fun commonInputValidator(message: String, inputType: InputType): String? {
             return when (inputType) {
                 InputType.EMAIL -> {

@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Widget.Theme.AndroidTutorial.MyView" parent="">
         <item name="android:background">@color/grey1</item>
     </style>
