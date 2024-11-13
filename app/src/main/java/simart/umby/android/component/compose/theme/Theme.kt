@@ -1,4 +1,4 @@
-package simart.umby.android.pages.task_approval.ui.theme
+package simart.umby.android.component.compose.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#000</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="textPrimary">#465478</color>
     <color name="textPrimary2">#0E1726</color>
     <color name="textSecondary">#757575</color>
@@ -22,6 +24,7 @@
     <color name="disabledBackground">#F8F8F8</color>
     <color name="purple">#673AB7</color>
     <color name="purple2">#5856D6</color>
+    <color name="purple3">#AF52DE</color>
     <color name="red1">#FF5D5D</color>
     <color name="red2">#FF3B30</color>
     <color name="red3">#EF5350</color>
