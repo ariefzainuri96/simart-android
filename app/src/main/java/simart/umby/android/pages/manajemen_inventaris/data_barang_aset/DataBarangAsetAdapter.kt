@@ -2,7 +2,9 @@ package simart.umby.android.pages.manajemen_inventaris.data_barang_aset
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import simart.umby.android.R
 import simart.umby.android.databinding.DataBarangAsetItemBinding
@@ -53,12 +55,36 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
             onClickListener?.onClick(position, listDataBarang[position])
         }
 
+        holder.binding.icMenu.setOnClickListener {
+            showPopupMenu(it)
+        }
+
         val cardView = holder.binding.root
         (cardView.layoutParams as? ViewGroup.MarginLayoutParams)?.topMargin = if (position == 0) context.toPx(16) else context.toPx(8)
         (cardView.layoutParams as? ViewGroup.MarginLayoutParams)?.bottomMargin = if (position == listDataBarang.count() - 1) context.toPx(16) else 0
         cardView.requestLayout()
 
         holder.setData(listDataBarang[position])
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(context, view)
+
+        popupMenu.menuInflater.inflate(R.menu.common_action_menu, popupMenu.menu)
+
+        popupMenu.setForceShowIcon(true)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.menuEdit) {
+                println("edit clicked")
+            } else if (menuItem.itemId == R.id.menuDelete) {
+                println("delete clicked")
+            }
+
+            true
+        }
+
+        popupMenu.show()
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {

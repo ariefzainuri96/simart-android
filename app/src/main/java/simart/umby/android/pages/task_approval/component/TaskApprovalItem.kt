@@ -80,7 +80,6 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
             ) {
                 Text("APPROVE", style = SfPro700.copy(color = colorResource(R.color.blue4)))
             }
-
         }
     }
 }
