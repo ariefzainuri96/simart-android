@@ -8,5 +8,4 @@
         android:id="@+id/menuDelete"
         android:icon="@drawable/ic_delete"
         android:title="Hapus" />
-
 </menu>

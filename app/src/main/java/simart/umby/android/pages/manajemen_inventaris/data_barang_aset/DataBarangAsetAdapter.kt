@@ -51,12 +51,8 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.root.setOnClickListener {
-            onClickListener?.onClick(position, listDataBarang[position])
-        }
-
         holder.binding.icMenu.setOnClickListener {
-            showPopupMenu(it)
+            showPopupMenu(it, position, listDataBarang[position])
         }
 
         val cardView = holder.binding.root
@@ -67,7 +63,7 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
         holder.setData(listDataBarang[position])
     }
 
-    private fun showPopupMenu(view: View) {
+    private fun showPopupMenu(view: View, position: Int, model: DataBarangAsetModel) {
         val popupMenu = PopupMenu(context, view)
 
         popupMenu.menuInflater.inflate(R.menu.common_action_menu, popupMenu.menu)
@@ -76,9 +72,9 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
             if (menuItem.itemId == R.id.menuEdit) {
-                println("edit clicked")
+                onClickListener?.onEditClick(position, model)
             } else if (menuItem.itemId == R.id.menuDelete) {
-                println("delete clicked")
+                onClickListener?.onDeleteClick(position, model)
             }
 
             true
@@ -93,7 +89,8 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
 
     // Interface for the click listener
     interface OnClickListener {
-        fun onClick(position: Int, model: DataBarangAsetModel)
+        fun onEditClick(position: Int, model: DataBarangAsetModel)
+        fun onDeleteClick(position: Int, model: DataBarangAsetModel)
     }
 
     override fun getItemCount(): Int = listDataBarang.count()

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import simart.umby.android.databinding.ActivityDataBarangAsetBinding
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
+import simart.umby.android.pages.manajemen_inventaris.edit_data_barang_aset.EditDataBarangAsetBS
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.collectLatestLifeCycleFlow
@@ -46,11 +47,20 @@ class DataBarangAsetActivity : AppCompatActivity() {
         val adapter = DataBarangAsetAdapter(this, viewModel.listDataBarang.value)
 
         adapter.setOnClickListener(object : DataBarangAsetAdapter.OnClickListener {
-            override fun onClick(
+            override fun onEditClick(
                 position: Int,
                 model: DataBarangAsetModel
             ) {
-                println("TEST")
+                val dialog = EditDataBarangAsetBS()
+
+                dialog.show(supportFragmentManager, EditDataBarangAsetBS::class.java.simpleName)
+            }
+
+            override fun onDeleteClick(
+                position: Int,
+                model: DataBarangAsetModel
+            ) {
+                println("onDeleteClick")
             }
         })
 
