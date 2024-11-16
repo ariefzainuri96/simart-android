@@ -1,6 +1,7 @@
 package simart.umby.android.component
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
@@ -22,6 +23,9 @@ class CustomDropdown @JvmOverloads constructor(
     private var onItemSelectedListener: OnItemSelectedListener? = null
 
     init {
+        binding.dropdownMenu.maxLines = 1
+        binding.dropdownMenu.ellipsize = TextUtils.TruncateAt.END
+        binding.dropdownMenu.setSingleLine()
         // create an array adapter and pass the required parameter
         // in our case pass the context, drop down layout , and array.
         val arrayAdapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, mutableListOf<String>())

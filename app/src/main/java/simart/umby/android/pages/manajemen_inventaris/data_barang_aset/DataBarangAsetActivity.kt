@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import simart.umby.android.databinding.ActivityDataBarangAsetBinding
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
 import simart.umby.android.pages.manajemen_inventaris.edit_data_barang_aset.EditDataBarangAsetBS
@@ -15,6 +16,7 @@ import simart.umby.android.utils.Utils
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 import simart.umby.android.utils.getStatusBarHeight
 
+@AndroidEntryPoint
 class DataBarangAsetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDataBarangAsetBinding
     private val viewModel: DataBarangAsetViewModel by viewModels()
@@ -51,7 +53,7 @@ class DataBarangAsetActivity : AppCompatActivity() {
                 position: Int,
                 model: DataBarangAsetModel
             ) {
-                val dialog = EditDataBarangAsetBS()
+                val dialog = EditDataBarangAsetBS(model)
 
                 dialog.show(supportFragmentManager, EditDataBarangAsetBS::class.java.simpleName)
             }

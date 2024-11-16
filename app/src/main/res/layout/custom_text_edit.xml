@@ -8,7 +8,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_400"
+        android:fontFamily="@font/sf_pro_400"
         android:textSize="12sp"
         android:textColor="@color/grey3"
         android:text="Username"/>
