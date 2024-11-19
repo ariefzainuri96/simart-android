@@ -69,7 +69,7 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun GreetingPreview() {
     SimartUmbyTheme {
