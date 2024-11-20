@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ApprovePermintaanBarangBSVM @Inject constructor(
     application: Application
-): ViewModel() {
+) : ViewModel() {
     private var _state = MutableStateFlow(RequestState.IDLE)
     var state = _state.asStateFlow()
 

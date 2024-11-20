@@ -34,6 +34,11 @@ val Typography = Typography(
     */
 )
 
+val SfPro300 = TextStyle(
+    fontFamily = Utils.FontName,
+    fontWeight = FontWeight.Light,
+    fontSize = 14.sp,
+    color = gray1)
 val SfPro400 = TextStyle(
     fontFamily = Utils.FontName,
     fontWeight = FontWeight.Normal,

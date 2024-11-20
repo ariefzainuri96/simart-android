@@ -57,12 +57,25 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
             CustomTopbar(title = "Task Approval (23)", onBackClick = {
                 context.finish()
             }) {
-                Icon(painterResource(R.drawable.ic_filter), tint = Color.White, modifier = Modifier.size(20.dp), contentDescription = null)
+                Icon(
+                    painterResource(R.drawable.ic_filter),
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp),
+                    contentDescription = null
+                )
             }
         }) { innerPadding ->
-        LazyColumn(modifier = Modifier.padding(innerPadding).padding(horizontal = 16.dp).padding(bottom = 16.dp)) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 16.dp)
+        ) {
             itemsIndexed(tasks.value) { index, task ->
-                TaskApprovalItem(task, modifier = Modifier.padding(top = if (index == 0) 16.dp else 0.dp))
+                TaskApprovalItem(
+                    task,
+                    modifier = Modifier.padding(top = if (index == 0) 16.dp else 0.dp)
+                )
                 HorizontalDivider(color = colorResource(R.color.transparent), thickness = 8.dp)
             }
         }
@@ -73,6 +86,14 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
 @Composable
 fun GreetingPreview() {
     SimartUmbyTheme {
-        TaskApprovalItem(TaskApprovalModel("Peminjaman Aset", "Nama Aset", "1212", "Date", "Status"))
+        TaskApprovalItem(
+            TaskApprovalModel(
+                "Peminjaman Aset",
+                "Nama Aset",
+                "1212",
+                "Date",
+                "Status"
+            )
+        )
     }
 }

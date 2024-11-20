@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,6 +46,7 @@ import simart.umby.android.component.compose.theme.SfPro700
 import simart.umby.android.model.TaskApprovalModel
 import simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs.ApprovePermintaanBarangBS
 import simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
+import simart.umby.android.utils.crop
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,46 +96,71 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                         painterResource(R.drawable.ic_more_vertical),
                         contentDescription = null,
                         tint = colorResource(R.color.grey1),
-                        modifier = Modifier.size(20.dp).clickable {
-                            expanded = !expanded
-                        },
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable {
+                                expanded = !expanded
+                            },
                     )
 
                     DropdownMenu(
                         expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .crop(vertical = 8.dp)
+                            .background(
+                                colorResource(R.color.white),
+                                shape = RoundedCornerShape(8.dp)
+                            )
                     ) {
                         DropdownMenuItem(
-                            text = { Row {
-                                Icon(
-                                    painterResource(R.drawable.ic_eye),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp)
-                                )
+                            text = {
+                                Row {
+                                    Icon(
+                                        painterResource(R.drawable.ic_eye),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp)
+                                    )
 
-                                Spacer(Modifier.width(8.dp))
+                                    Spacer(Modifier.width(8.dp))
 
-                                Text("Detail", style = SfPro400)
-                            } },
+                                    Text(
+                                        "Detail", style = SfPro500, maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            },
                             onClick = { /* Handle refresh! */ }
                         )
 
                         HorizontalDivider()
 
                         DropdownMenuItem(
-                            text = { Row {
-                                Icon(
-                                    painterResource(R.drawable.ic_approve),
-                                    contentDescription = null,
-                                    tint = colorResource(R.color.blue4),
-                                    modifier = Modifier.size(16.dp),
-                                )
+                            text = {
+                                Row {
+                                    Icon(
+                                        painterResource(R.drawable.ic_approve),
+                                        contentDescription = null,
+                                        tint = colorResource(R.color.blue4),
+                                        modifier = Modifier.size(20.dp),
+                                    )
 
-                                Spacer(Modifier.width(8.dp))
+                                    Spacer(Modifier.width(8.dp))
 
-                                Text("Detail", style = SfPro400.copy(colorResource(R.color.blue4)))
-                            } },
-                            onClick = { /* Handle settings! */ }
+                                    Text(
+                                        "Approve",
+                                        style = SfPro400.copy(colorResource(R.color.blue4)),
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            },
+                            onClick = {
+                                expanded = !expanded
+                                showBottomSheet = !showBottomSheet
+                            }
                         )
                     }
                 }
@@ -142,15 +169,28 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
             Spacer(Modifier.height(8.dp))
 
             Row {
-                Text(data.namaAset, style = SfPro500.copy(colorResource(R.color.grey1), 12.sp), modifier = Modifier.weight(1F))
+                Text(
+                    data.namaAset, style = SfPro500.copy(colorResource(R.color.grey1), 12.sp),
+                    modifier = Modifier.weight(1F)
+                )
                 Spacer(Modifier.width(10.dp))
-                Text(data.noPeminjamanAset, style = SfPro400.copy(colorResource(R.color.textPrimary), 12.sp))
+                Text(
+                    data.noPeminjamanAset, style = SfPro400.copy(
+                        colorResource(
+                            R.color
+                                .textPrimary
+                        ), 12.sp
+                    )
+                )
             }
 
             Spacer(Modifier.height(8.dp))
 
             Row(modifier = Modifier.fillMaxWidth()) {
-                Text(data.date, modifier = Modifier.weight(1F), style = SfPro400.copy(colorResource(R.color.blue4), 12.sp))
+                Text(
+                    data.date, modifier = Modifier.weight(1F), style = SfPro400.copy
+                        (colorResource(R.color.blue4), 12.sp)
+                )
                 Text("Status", style = SfPro400.copy(colorResource(R.color.purple3), 12.sp))
             }
 
@@ -160,14 +200,18 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
 
             Spacer(Modifier.height(8.dp))
 
-            TextButton({
-                showBottomSheet = true
-            },
+            TextButton(
+                {
+                    showBottomSheet = true
+                },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
-                .border(border = BorderStroke(1.dp, colorResource(R.color.blue4)), shape = RoundedCornerShape(4.dp))
-                .fillMaxWidth()
-                .height(41.dp)
+                    .border(
+                        border = BorderStroke(1.dp, colorResource(R.color.blue4)),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .fillMaxWidth()
+                    .height(41.dp)
             ) {
                 Text("APPROVE", style = SfPro700.copy(color = colorResource(R.color.blue4)))
             }

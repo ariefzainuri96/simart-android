@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskApprovalVM @Inject constructor(
     private val app: Application
-): ViewModel() {
+) : ViewModel() {
     private var _taskApprovals = MutableStateFlow(listOf<TaskApprovalModel>())
     var taskApprovals = _taskApprovals.asStateFlow()
 
@@ -29,8 +29,20 @@ class TaskApprovalVM @Inject constructor(
             delay(1000L)
 
             _taskApprovals.value = listOf<TaskApprovalModel>(
-                TaskApprovalModel("Peminjaman Aset1", "Nama Aset1", "12345", "21/08/2024", "Status"),
-                TaskApprovalModel("Peminjaman Aset1", "Nama Aset1", "12345", "21/08/2024", "Status"),
+                TaskApprovalModel(
+                    "Peminjaman Aset1",
+                    "Nama Aset1",
+                    "12345",
+                    "21/08/2024",
+                    "Status"
+                ),
+                TaskApprovalModel(
+                    "Peminjaman Aset1",
+                    "Nama Aset1",
+                    "12345",
+                    "21/08/2024",
+                    "Status"
+                ),
             )
 
             taskApprovalsState.value = RequestState.SUCCESS
