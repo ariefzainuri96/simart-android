@@ -44,27 +44,31 @@ import simart.umby.android.component.compose.theme.SfPro400
 import simart.umby.android.component.compose.theme.SfPro500
 import simart.umby.android.component.compose.theme.SfPro700
 import simart.umby.android.model.TaskApprovalModel
-import simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs.ApprovePermintaanBarangBS
-import simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
+import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBS
+import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
+import simart.umby.android.pages.task_approval.section.detail_peminjaman_aset.DetailPeminjamanAsetBS
 import simart.umby.android.utils.crop
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
     val viewModel = viewModel<ApprovePermintaanBarangBSVM>()
-    val sheetState = rememberModalBottomSheetState(
+    val approveSheetState = rememberModalBottomSheetState(
 //        uncomment this line to prevent bottom sheet from collapsing by swipe or click outside
 //        skipPartiallyExpanded = true,
 //        confirmValueChange = { newValue ->
 //            newValue != SheetValue.Hidden
 //        }
     )
+    val detailSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
     var expanded by remember { mutableStateOf(false) }
-    var showBottomSheet by remember { mutableStateOf(false) }
+    var showBottomSheetApprove by remember { mutableStateOf(false) }
+    var showBottomSheetDetail by remember { mutableStateOf(false) }
 
-    LaunchedEffect(sheetState.currentValue) {
-        if (sheetState.currentValue == SheetValue.Hidden) {
-            println("BottomSheet Hidden")
+    LaunchedEffect(approveSheetState.currentValue) {
+        if (approveSheetState.currentValue == SheetValue.Hidden) {
             viewModel.resetState()
         }
     }
@@ -131,7 +135,10 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                                     )
                                 }
                             },
-                            onClick = { /* Handle refresh! */ }
+                            onClick = {
+                                expanded = !expanded
+                                showBottomSheetDetail = !showBottomSheetDetail
+                            }
                         )
 
                         HorizontalDivider()
@@ -159,7 +166,7 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                             },
                             onClick = {
                                 expanded = !expanded
-                                showBottomSheet = !showBottomSheet
+                                showBottomSheetApprove = !showBottomSheetApprove
                             }
                         )
                     }
@@ -202,7 +209,7 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
 
             TextButton(
                 {
-                    showBottomSheet = true
+                    showBottomSheetApprove = true
                 },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
@@ -216,21 +223,42 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                 Text("APPROVE", style = SfPro700.copy(color = colorResource(R.color.blue4)))
             }
 
-            if (showBottomSheet) {
+            if (showBottomSheetApprove) {
                 ModalBottomSheet(
-                    sheetState = sheetState,
+                    sheetState = approveSheetState,
                     onDismissRequest = {
                         // leave this empty to prevent dismiss by swipe or clicking outside
-                        showBottomSheet = false
+                        showBottomSheetApprove = false
                     },
                     dragHandle = {
                         // leave this empty to hide bottomsheet header
                     },
                 ) {
                     ApprovePermintaanBarangBS { scope ->
-                        scope.launch { sheetState.hide() }.invokeOnCompletion {
-                            if (!sheetState.isVisible) {
-                                showBottomSheet = false
+                        scope.launch { approveSheetState.hide() }.invokeOnCompletion {
+                            if (!approveSheetState.isVisible) {
+                                showBottomSheetApprove = false
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (showBottomSheetDetail) {
+                ModalBottomSheet(
+                    sheetState = detailSheetState,
+                    onDismissRequest = {
+                        // leave this empty to prevent dismiss by swipe or clicking outside
+                        showBottomSheetDetail = false
+                    },
+                    dragHandle = {
+                        // leave this empty to hide bottomsheet header
+                    }
+                ) {
+                    DetailPeminjamanAsetBS() { scope ->
+                        scope.launch { detailSheetState.hide() }.invokeOnCompletion {
+                            if (!detailSheetState.isVisible) {
+                                showBottomSheetDetail = false
                             }
                         }
                     }

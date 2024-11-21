@@ -1,4 +1,4 @@
-package simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs
+package simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

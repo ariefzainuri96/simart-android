@@ -1,4 +1,4 @@
-package simart.umby.android.pages.task_approval.component.approve_permintaan_barang_bs
+package simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
