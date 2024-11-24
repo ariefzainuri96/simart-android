@@ -12,16 +12,22 @@ import kotlinx.coroutines.launch
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
 import simart.umby.android.utils.RequestState
 import javax.inject.Inject
+import kotlin.collections.mutableListOf
 
 @HiltViewModel
 class EditDataBarangAsetVM @Inject constructor(
     application: Application
 ): ViewModel() {
     private var _editForm = MutableStateFlow(DataBarangAsetModel())
-    val loginForm = _editForm.asStateFlow()
+    val editForm = _editForm.asStateFlow()
 
     private var _state = MutableStateFlow(RequestState.IDLE)
     val state = _state.asStateFlow()
+
+    private var _availabilityState = MutableStateFlow(RequestState.IDLE)
+    val availabilityState = _availabilityState.asStateFlow()
+    private var _availabilityList = MutableStateFlow(mutableListOf<String>())
+    val availabilityList = _availabilityList.asStateFlow()
 
     fun updateForm(update: DataBarangAsetModel.() -> DataBarangAsetModel) {
         _editForm.update {
@@ -43,5 +49,21 @@ class EditDataBarangAsetVM @Inject constructor(
 
             _state.value = RequestState.SUCCESS
         }
+    }
+
+    fun getAvailability() {
+        _availabilityState.value = RequestState.LOADING
+
+        viewModelScope.launch {
+            delay(1000L)
+
+            _availabilityList.value = mutableListOf("ABC", "DEF", "GHI")
+
+            _availabilityState.value = RequestState.SUCCESS
+        }
+    }
+
+    init {
+        getAvailability()
     }
 }

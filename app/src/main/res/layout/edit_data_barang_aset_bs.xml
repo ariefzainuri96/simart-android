@@ -199,12 +199,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.CustomDropdown
+<!--                    <simart.umby.android.component.CustomDropdown-->
+<!--                        android:id="@+id/availability"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        />-->
+
+                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/availability"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        />
+                        android:layout_weight="1"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
