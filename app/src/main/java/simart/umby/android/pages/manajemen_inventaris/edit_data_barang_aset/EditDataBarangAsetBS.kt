@@ -22,6 +22,7 @@ import simart.umby.android.component.custom_bs_picker.CustomBSPickerContentInter
 import simart.umby.android.component.custom_bs_picker.CustomBottomSheetPickerInterface
 import simart.umby.android.databinding.EditDataBarangAsetBsBinding
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
+import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 
 @AndroidEntryPoint
@@ -67,15 +68,6 @@ class EditDataBarangAsetBS(
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-
-        collectFlow()
-    }
-
-    fun collectFlow() {
-        collectLatestLifeCycleFlow(viewModel.availabilityList) {
-            println("collectFlow -> $it")
-
-        }
     }
 
     fun setupView() {
@@ -258,26 +250,34 @@ class EditDataBarangAsetBS(
 
         binding.availability.apply {
             setAction(object : CustomBottomSheetPickerInterface {
-                @SuppressLint("NotifyDataSetChanged")
                 override fun showBottomSheet() {
+                    if (viewModel.availabilityState.value == RequestState.LOADING) return
+
                     val dialog = CustomBSPickerContent(
                         "Pilih Availability",
                         object : CustomBSPickerContentInterface {
                             override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
-//                                availabilityAdapter = adapter as CustomBSPickerContentAdapter
                                 adapter as CustomBSPickerContentAdapter
-
-                                adapter.updateData(viewModel.availabilityList.value)
 
                                 adapter.setInterface(object :
                                     CustomBSPickerContentAdapterInterface {
-                                    override fun setDataContent(
-                                        viewHolder: CustomBSPickerContentAdapter.ViewHolder,
-                                        position: Int
-                                    ) {
-                                        viewHolder.setData(viewModel.availabilityList.value[position])
+                                    override fun handleOnClick(position: Int) {
+                                        println(
+                                            "handleOnClick -> ${
+                                                viewModel.availabilityList
+                                                    .value[position]
+                                            }"
+                                        )
                                     }
                                 })
+
+                                collectLatestLifeCycleFlow(viewModel.availabilityList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getAvailability(isInitial = false)
                             }
                         })
 

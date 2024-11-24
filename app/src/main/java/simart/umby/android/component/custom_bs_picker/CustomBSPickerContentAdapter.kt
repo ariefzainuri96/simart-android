@@ -6,15 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import simart.umby.android.databinding.CustomBsPickerContentItemBinding
 
 interface CustomBSPickerContentAdapterInterface {
-    fun setDataContent(viewHolder: CustomBSPickerContentAdapter.ViewHolder, position: Int)
+    fun handleOnClick(position: Int)
 }
 
-class CustomBSPickerContentAdapter: RecyclerView.Adapter<CustomBSPickerContentAdapter.ViewHolder>() {
+class CustomBSPickerContentAdapter :
+    RecyclerView.Adapter<CustomBSPickerContentAdapter.ViewHolder>() {
     private var customBSPickerContentAdapterInterface: CustomBSPickerContentAdapterInterface? = null
-    private var dataContent = mutableListOf<Any>()
+    private var titleContent = mutableListOf<String>()
 
-    inner class ViewHolder(val binding: CustomBsPickerContentItemBinding): RecyclerView.ViewHolder(binding
-        .root) {
+    inner class ViewHolder(val binding: CustomBsPickerContentItemBinding) : RecyclerView.ViewHolder(
+        binding
+            .root
+    ) {
         fun setData(data: String) {
             binding.content.text = data
         }
@@ -37,17 +40,23 @@ class CustomBSPickerContentAdapter: RecyclerView.Adapter<CustomBSPickerContentAd
         holder: ViewHolder,
         position: Int
     ) {
-        customBSPickerContentAdapterInterface?.setDataContent(holder, position)
+        holder.setData(titleContent[position])
+
+        holder.binding.root.setOnClickListener {
+            customBSPickerContentAdapterInterface?.handleOnClick(position)
+        }
     }
 
-    override fun getItemCount(): Int = dataContent.count()
+    override fun getItemCount(): Int = titleContent.size
 
     fun setInterface(customBSPickerContentAdapterInterface: CustomBSPickerContentAdapterInterface) {
         this.customBSPickerContentAdapterInterface = customBSPickerContentAdapterInterface
     }
 
-    fun updateData(data: List<Any>) {
-        dataContent.addAll(data)
-        notifyDataSetChanged()
+    fun updateData(titles: List<String>) {
+        val previousSize = titleContent.size
+        titleContent.clear()
+        titleContent.addAll(titles)
+        notifyItemRangeInserted(previousSize, titleContent.size)
     }
 }

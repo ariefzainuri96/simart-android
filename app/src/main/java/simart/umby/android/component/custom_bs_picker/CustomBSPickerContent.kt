@@ -11,6 +11,7 @@ import simart.umby.android.databinding.CustomBsPickerContentBinding
 
 interface CustomBSPickerContentInterface {
     fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?)
+    fun onGetMoreData()
 }
 
 class CustomBSPickerContent(
@@ -44,6 +45,21 @@ class CustomBSPickerContent(
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                if (lastVisibleItemPosition + 1 >= totalItemCount) {
+                    // Reached the end, load more data
+                    customBSPickerContentInterface.onGetMoreData()
+                }
+            }
+        })
 
         customBSPickerContentInterface.onRecyclerViewReady(binding.recyclerView.adapter)
     }

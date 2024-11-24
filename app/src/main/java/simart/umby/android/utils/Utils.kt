@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
 import simart.umby.android.R
+import kotlin.random.Random
 
 enum class InputType {
     EMAIL, PASSWORD
@@ -35,6 +36,18 @@ class Utils {
             Font(R.font.sf_pro_700, FontWeight.Bold),
             Font(R.font.sf_pro_900, FontWeight.Black),
         )
+
+        fun generateRandomString(minLength: Int, maxLength: Int): String {
+            require(minLength >= 0) { "Minimum length must be non-negative" }
+            require(maxLength >= minLength) { "Maximum length must be greater than or equal to minimum length" }
+
+            val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9') // Alphanumeric characters
+            val length = Random.nextInt(minLength, maxLength + 1)
+
+            return (1..length)
+                .map { charPool.random() }
+                .joinToString("")
+        }
 
         fun commonInputValidator(message: String, inputType: InputType): String? {
             return when (inputType) {

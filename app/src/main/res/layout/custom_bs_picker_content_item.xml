@@ -10,5 +10,6 @@
         android:fontFamily="@font/sf_pro_400"
         android:textSize="14sp"
         android:textColor="@color/grey1"
-        android:text="Testing"/>
+        android:text="Testing"
+        android:paddingVertical="12dp"/>
 </LinearLayout>
