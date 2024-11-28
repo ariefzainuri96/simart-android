@@ -48,7 +48,7 @@ class DataBarangAsetActivity : AppCompatActivity() {
     private fun setupDataBarangAsetAdapter() {
         val adapter = DataBarangAsetAdapter(this, viewModel.listDataBarang.value)
 
-        adapter.setOnClickListener(object : DataBarangAsetAdapter.OnClickListener {
+        adapter.setOnClickListener(object : DataBarangAsetAdapterInterface {
             override fun onEditClick(
                 position: Int,
                 model: DataBarangAsetModel

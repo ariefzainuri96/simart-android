@@ -10,9 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import simart.umby.android.R
 import simart.umby.android.databinding.ActivityLoginBinding
 import simart.umby.android.pages.dashboard.DashboardActivity
-import simart.umby.android.utils.InputType
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
+import simart.umby.android.utils.ValidationType
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 
 @AndroidEntryPoint
@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             binding.usernameInput.setError(
                 Utils.Companion.commonInputValidator(
                     text.toString(),
-                    InputType.EMAIL
+                    ValidationType.EMAIL
                 )
             )
         }
@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
             binding.passwordInput.setError(
                 Utils.Companion.commonInputValidator(
                     text.toString(),
-                    InputType.PASSWORD
+                    ValidationType.PASSWORD
                 )
             )
         }

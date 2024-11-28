@@ -51,34 +51,39 @@ class InformasiAsetBS(
 //            binding.counter.text = "$it"
 //        }
 
-        binding.appbar.setIcCloseClick {
-            dismiss()
+        binding.appbar.apply {
+            setIcCloseClick {
+                dismiss()
+            }
+
+            setLayout("Informasi Aset")
         }
 
-        binding.noPO.setContent("PO/2024/123")
-        binding.noGRInvoice.setContent("INV-GR-FTI-2024123")
-        binding.noSPK.setContent("12345")
-        binding.vendor.setContent("Nama Vendor")
-        binding.tipeAset.setContent("ATK")
-        binding.noInventaris.setContent("12345")
-        binding.noBBK.setContent("00000000")
-        binding.namaAset.setContent("Epson Stylish")
-        binding.deskripsiAset.setContent("-")
-        binding.spesifikasiAset.setContent("Projection Technology: Projection Technology: RGB liquid crystal shutter projection system (3LCD)\n" +
+        binding.noPO.setContent("No. PO", "PO/2024/123")
+        binding.noGRInvoice.setContent("No. Invoice", "INV-GR-FTI-2024123")
+        binding.noSPK.setContent("No. SPK", "12345")
+        binding.vendor.setContent("Vendor", "Nama Vendor")
+        binding.tipeAset.setContent("Tipe Aset", "ATK")
+        binding.noInventaris.setContent("No. Inventaris", "12345")
+        binding.noBBK.setContent("No. BBK", "00000000")
+        binding.namaAset.setContent("Nama Aset", "Epson Stylish")
+        binding.deskripsiAset.setContent("Deskripsi Aset", "-")
+        binding.spesifikasiAset.setContent("Spesifikasi Aset", "Projection Technology: Projection" +
+                " Technology: RGB liquid crystal shutter projection system (3LCD)\n" +
                 "Brightness1: White Light Output (Normal/Eco): 3,600 lmColour Light Output: 3,600 lm.\n" +
                 "Connectivity: USB Interface: USB Type A: 1 (For Wireless LAN, Firmware Update, Copy OSD Settings)")
-        binding.kategoriAset.setContent("-")
-        binding.subKategoriAset.setContent("-")
-        binding.kampus.setContent("-")
-        binding.ruang.setContent("-")
-        binding.convidentality.setContent("-")
-        binding.integrity.setContent("-")
-        binding.availability.setContent("-")
-        binding.tanggalAkuisisi.setContent("-")
-        binding.tanggalDepresiasi.setContent("-")
-        binding.sumberAset.setContent("-")
-        binding.jumlahAset.setContent("-")
-        binding.nvb.setContent("-")
-        binding.statusAset.setContent("-")
+        binding.kategoriAset.setContent("Kategori Aset", "-")
+        binding.subKategoriAset.setContent("Sub Kategori Aset", "-")
+        binding.kampus.setContent("Kampus", "-")
+        binding.ruang.setContent("Ruang", "-")
+        binding.convidentality.setContent("Convidentality", "-")
+        binding.integrity.setContent("Integrity", "-")
+        binding.availability.setContent("Availability", "-")
+        binding.tanggalAkuisisi.setContent("Tanggal Akuisisi", "-")
+        binding.tanggalDepresiasi.setContent("Tanggal Depresiasi", "-")
+        binding.sumberAset.setContent("Sumber Aset", "-")
+        binding.jumlahAset.setContent("Jumlah Aset", "-")
+        binding.nvb.setContent("NVB", "-")
+        binding.statusAset.setContent("Status Aset", "-")
     }
 }

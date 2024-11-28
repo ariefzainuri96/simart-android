@@ -11,6 +11,7 @@ import simart.umby.android.databinding.CustomBsPickerContentBinding
 
 interface CustomBSPickerContentInterface {
     fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?)
+    fun onItemClick(position: Int)
     fun onGetMoreData()
 }
 
@@ -41,6 +42,14 @@ class CustomBSPickerContent(
 
         // set adapter
         val adapter = CustomBSPickerContentAdapter()
+
+        adapter.setInterface(object : CustomBSPickerContentAdapterInterface {
+            override fun handleOnClick(position: Int) {
+                customBSPickerContentInterface.onItemClick(position)
+                dismiss()
+            }
+        })
+
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         binding.recyclerView.adapter = adapter

@@ -3,6 +3,7 @@ package simart.umby.android.component
 import android.content.Context
 import android.content.res.ColorStateList
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
@@ -26,11 +27,20 @@ class CustomTextEdit @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomTextEdit)
         val title = typedArray.getString(R.styleable.CustomTextEdit_title)
         val hint = typedArray.getString(R.styleable.CustomTextEdit_hint)
-        val action = typedArray.getInt(R.styleable.CustomTextEdit_android_imeOptions, EditorInfo.IME_ACTION_DONE)
-        val borderColor = typedArray.getInt(R.styleable.CustomTextEdit_borderColor, ContextCompat.getColor(context, R.color.line))
-        val inputType = typedArray.getInt(R.styleable.CustomTextEdit_android_inputType, InputType.TYPE_CLASS_TEXT)
-        val maxLines = typedArray.getInt(R.styleable.CustomTextEdit_android_maxLines, 0)
         val obscure = typedArray.getBoolean(R.styleable.CustomTextEdit_obscure, false)
+        val action = typedArray.getInt(
+            R.styleable.CustomTextEdit_android_imeOptions,
+            EditorInfo.IME_ACTION_DONE
+        )
+        val borderColor = typedArray.getInt(
+            R.styleable.CustomTextEdit_borderColor, ContextCompat
+                .getColor(context, R.color.input_border)
+        )
+        val inputType = typedArray.getInt(
+            R.styleable.CustomTextEdit_android_inputType,
+            InputType.TYPE_CLASS_TEXT
+        )
+        val maxLines = typedArray.getInt(R.styleable.CustomTextEdit_android_maxLines, 1)
         typedArray.recycle()
 
         // set layout
@@ -44,8 +54,7 @@ class CustomTextEdit @JvmOverloads constructor(
         binding.textInput.inputType = inputType
 
         if (obscure) {
-            binding.textInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.textInput.maxLines = 1
+            binding.textInput.transformationMethod = PasswordTransformationMethod.getInstance()
         }
     }
 
@@ -60,10 +69,12 @@ class CustomTextEdit @JvmOverloads constructor(
             intArrayOf() // default
         )
 
-        val colors = intArrayOf(borderColor ?: defaultColor, // focused color
+        val colors = intArrayOf(
+            borderColor ?: defaultColor, // focused color
             borderColor ?: defaultColor, // hovered color
             borderColor ?: defaultColor, // enabled color
-            borderColor ?: defaultColor) // default color
+            borderColor ?: defaultColor
+        ) // default color
 
         val myColorList = ColorStateList(states, colors)
 

@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentActivity
 import simart.umby.android.R
 import kotlin.random.Random
 
-enum class InputType {
+enum class ValidationType {
     EMAIL, PASSWORD
 }
 
@@ -49,13 +49,13 @@ class Utils {
                 .joinToString("")
         }
 
-        fun commonInputValidator(message: String, inputType: InputType): String? {
+        fun commonInputValidator(message: String, inputType: ValidationType): String? {
             return when (inputType) {
-                InputType.EMAIL -> {
+                ValidationType.EMAIL -> {
                     if (message.isEmpty()) "Input can't be empty"
                     else null
                 }
-                InputType.PASSWORD -> {
+                ValidationType.PASSWORD -> {
                     if (message.isEmpty()) "Password can't be empty"
                     else null
                 }

@@ -37,6 +37,7 @@
     <color name="blue4">#007AFF</color>
     <color name="blue5">#E3EAFF</color>
     <color name="line">#BFBFBF</color>
+    <color name="input_border">#E0E0E0</color>
     <color name="lineSeparator">#EFEFEF</color>
     <color name="lineSeparator2">#DFDFDF</color>
     <color name="defaultStatusBar">#88000000</color>

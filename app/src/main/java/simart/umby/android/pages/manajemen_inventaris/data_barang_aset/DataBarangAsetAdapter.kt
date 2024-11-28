@@ -11,9 +11,15 @@ import simart.umby.android.databinding.DataBarangAsetItemBinding
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
 import simart.umby.android.utils.toPx
 
+// Interface for the click listener
+interface DataBarangAsetAdapterInterface {
+    fun onEditClick(position: Int, model: DataBarangAsetModel)
+    fun onDeleteClick(position: Int, model: DataBarangAsetModel)
+}
+
 class DataBarangAsetAdapter(val context: Context, private var listDataBarang: List<DataBarangAsetModel>): RecyclerView.Adapter<DataBarangAsetAdapter.ViewHolder>() {
 
-    private var onClickListener: OnClickListener? = null
+    private var dataBarangAsetAdapterInterface: DataBarangAsetAdapterInterface? = null
 
     inner class ViewHolder(val binding: DataBarangAsetItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun setData(data: DataBarangAsetModel) {
@@ -72,9 +78,9 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
             if (menuItem.itemId == R.id.menuEdit) {
-                onClickListener?.onEditClick(position, model)
+                dataBarangAsetAdapterInterface?.onEditClick(position, model)
             } else if (menuItem.itemId == R.id.menuDelete) {
-                onClickListener?.onDeleteClick(position, model)
+                dataBarangAsetAdapterInterface?.onDeleteClick(position, model)
             }
 
             true
@@ -83,14 +89,8 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
         popupMenu.show()
     }
 
-    fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
-    }
-
-    // Interface for the click listener
-    interface OnClickListener {
-        fun onEditClick(position: Int, model: DataBarangAsetModel)
-        fun onDeleteClick(position: Int, model: DataBarangAsetModel)
+    fun setOnClickListener(onClickListener: DataBarangAsetAdapterInterface) {
+        this.dataBarangAsetAdapterInterface = onClickListener
     }
 
     override fun getItemCount(): Int = listDataBarang.count()

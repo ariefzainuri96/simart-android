@@ -1,6 +1,5 @@
 package simart.umby.android.pages.manajemen_inventaris.edit_data_barang_aset
 
-import android.annotation.SuppressLint
 import simart.umby.android.R
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.MutableStateFlow
 import simart.umby.android.component.CustomCheckboxInterface
 import simart.umby.android.component.CustomDatePickerInterface
 import simart.umby.android.component.OnItemSelectedListener
@@ -19,6 +19,7 @@ import simart.umby.android.component.custom_bs_picker.CustomBSPickerContent
 import simart.umby.android.component.custom_bs_picker.CustomBSPickerContentAdapter
 import simart.umby.android.component.custom_bs_picker.CustomBSPickerContentAdapterInterface
 import simart.umby.android.component.custom_bs_picker.CustomBSPickerContentInterface
+import simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
 import simart.umby.android.component.custom_bs_picker.CustomBottomSheetPickerInterface
 import simart.umby.android.databinding.EditDataBarangAsetBsBinding
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
@@ -32,8 +33,6 @@ class EditDataBarangAsetBS(
     private val viewModel: EditDataBarangAsetVM by viewModels()
 
     private lateinit var binding: EditDataBarangAsetBsBinding
-
-//    var availabilityAdapter: CustomBSPickerContentAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,8 +70,12 @@ class EditDataBarangAsetBS(
     }
 
     fun setupView() {
-        binding.appbar.setIcCloseClick {
-            dismiss()
+        binding.appbar.apply {
+            setIcCloseClick {
+                dismiss()
+            }
+
+            setLayout("Edit Data Barang Aset")
         }
 
         binding.tanggalAkuisisi.apply {
@@ -131,16 +134,34 @@ class EditDataBarangAsetBS(
 
         binding.vendor.apply {
             setTitle("Vendor")
-            setDropdownText("Pilih Vendor")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(vendor = value) }
+            setContent("Pilih Vendor")
+
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.vendorState.value == RequestState.LOADING) return
+
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Vendor",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.vendorList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.vendorList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getVendor(isInitial = false)
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
@@ -155,95 +176,170 @@ class EditDataBarangAsetBS(
 
         binding.kategoriAset.apply {
             setTitle("Kategori Aset")
-            setDropdownText("Pilih Kategori Aset")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(kategoriAset = value) }
+            setContent("Pilih Kategori Aset")
+
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.kategoriAsetState.value == RequestState.LOADING) return
+
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Kategori Aset",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.kategoriAsetList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.kategoriAsetList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getKategoriAset(isInitial = false)
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
 
         binding.subKategoriAset.apply {
             setTitle("Sub Kategori Aset")
-            setDropdownText("Pilih Sub Kategori Aset")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(subKategoriAset = value) }
+
+            setContent("Pilih Sub Kategori Aset")
+
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.subKategoriAsetState.value == RequestState.LOADING) return
+
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Vendor",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.subKategoriAsetList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.subKategoriAsetList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getSubKategoriAset(isInitial = false)
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
 
-        binding.kampus.apply {
-            setTitle("Kampus")
-            setDropdownText("Pilih Kampus")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
+        binding.location.apply {
+            setTitle("Location")
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(kampus = value) }
-                }
-            })
-        }
+            setContent("Pilih Location")
 
-        binding.ruang.apply {
-            setTitle("Ruang")
-            setDropdownText("Pilih Ruang")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.locationState.value == RequestState.LOADING) return
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(ruang = value) }
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Location",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.locationList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.locationList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getLocation(isInitial = false)
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
 
         binding.convidentality.apply {
-            setTitle("Convisionality")
-            setDropdownText("Pilih Convisionality")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
+            setTitle("Convidentality")
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(convidentality = value) }
+            setContent("Pilih Convidentality")
+
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.ciaState.value == RequestState.LOADING) return
+
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Convidentality",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.ciaList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.ciaList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getAvailability()
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
 
         binding.integrity.apply {
             setTitle("Integrity")
-            setDropdownText("Pilih Integrity")
-            setDropdown(
-                listOf(
-                    "ABC", "DEF"
-                )
-            )
 
-            handleOnItemSelected(object : OnItemSelectedListener {
-                override fun onItemSelected(value: String) {
-                    viewModel.updateForm { copy(integrity = value) }
+            setContent("Pilih Integrity")
+
+            setAction(object : CustomBottomSheetPickerInterface {
+                override fun showBottomSheet() {
+                    if (viewModel.ciaState.value == RequestState.LOADING) return
+
+                    val dialog = CustomBSPickerContent(
+                        "Pilih Integrity",
+                        object : CustomBSPickerContentInterface {
+                            override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
+                                adapter as CustomBSPickerContentAdapter
+
+                                collectLatestLifeCycleFlow(viewModel.ciaList) { newData ->
+                                    adapter.updateData(newData)
+                                }
+                            }
+
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.ciaList.value[position])
+                            }
+
+                            override fun onGetMoreData() {
+                                viewModel.getAvailability()
+                            }
+                        })
+
+                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
                 }
             })
         }
@@ -251,7 +347,7 @@ class EditDataBarangAsetBS(
         binding.availability.apply {
             setAction(object : CustomBottomSheetPickerInterface {
                 override fun showBottomSheet() {
-                    if (viewModel.availabilityState.value == RequestState.LOADING) return
+                    if (viewModel.ciaState.value == RequestState.LOADING) return
 
                     val dialog = CustomBSPickerContent(
                         "Pilih Availability",
@@ -259,29 +355,24 @@ class EditDataBarangAsetBS(
                             override fun onRecyclerViewReady(adapter: RecyclerView.Adapter<*>?) {
                                 adapter as CustomBSPickerContentAdapter
 
-                                adapter.setInterface(object :
-                                    CustomBSPickerContentAdapterInterface {
-                                    override fun handleOnClick(position: Int) {
-                                        println(
-                                            "handleOnClick -> ${
-                                                viewModel.availabilityList
-                                                    .value[position]
-                                            }"
-                                        )
-                                    }
-                                })
-
-                                collectLatestLifeCycleFlow(viewModel.availabilityList) { newData ->
+                                collectLatestLifeCycleFlow(viewModel.ciaList) { newData ->
                                     adapter.updateData(newData)
                                 }
                             }
 
+                            override fun onItemClick(position: Int) {
+                                setContent(viewModel.ciaList.value[position])
+                            }
+
                             override fun onGetMoreData() {
-                                viewModel.getAvailability(isInitial = false)
+                                viewModel.getAvailability()
                             }
                         })
 
-                    dialog.show(childFragmentManager, CustomBSPickerContent::class.java.simpleName)
+                    dialog.show(
+                        childFragmentManager,
+                        CustomBSPickerContent::class.java.simpleName
+                    )
                 }
             })
 
@@ -289,20 +380,6 @@ class EditDataBarangAsetBS(
 
             setContent("Pilih Availability")
         }
-
-//        binding.availability.apply {
-//            setTitle("Availability")
-//            setDropdownText("Pilih Availability")
-//            setDropdown(listOf(
-//                "ABC", "DEF"
-//            ))
-//
-//            handleOnItemSelected(object : OnItemSelectedListener {
-//                override fun onItemSelected(value: String) {
-//                    viewModel.updateForm { copy(availability = value) }
-//                }
-//            })
-//        }
 
         binding.asetTerdepresiasiRadio.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.asetTerdepresiasiYa) {
@@ -340,4 +417,5 @@ class EditDataBarangAsetBS(
             viewModel.saveData()
         }
     }
+
 }
