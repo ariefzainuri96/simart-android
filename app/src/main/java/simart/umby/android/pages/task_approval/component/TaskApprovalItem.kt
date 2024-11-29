@@ -21,6 +21,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import simart.umby.android.R
@@ -53,15 +55,12 @@ import simart.umby.android.utils.crop
 @Composable
 fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
     val viewModel = viewModel<ApprovePermintaanBarangBSVM>()
-    val approveSheetState = rememberModalBottomSheetState(
-//        uncomment this line to prevent bottom sheet from collapsing by swipe or click outside
-//        skipPartiallyExpanded = true,
-//        confirmValueChange = { newValue ->
-//            newValue != SheetValue.Hidden
-//        }
-    )
+    val approveSheetState = rememberModalBottomSheetState()
     val detailSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
+        skipPartiallyExpanded = true,
+        confirmValueChange = { newValue ->
+            newValue != SheetValue.Hidden
+        }
     )
     var expanded by remember { mutableStateOf(false) }
     var showBottomSheetApprove by remember { mutableStateOf(false) }
@@ -247,19 +246,18 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
             if (showBottomSheetDetail) {
                 ModalBottomSheet(
                     sheetState = detailSheetState,
-                    onDismissRequest = {
-                        // leave this empty to prevent dismiss by swipe or clicking outside
-                        showBottomSheetDetail = false
-                    },
-                    dragHandle = {
-                        // leave this empty to hide bottomsheet header
-                    }
+                    onDismissRequest = {},
+                    dragHandle = null,
+                    shape = RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp),
+                    properties = ModalBottomSheetProperties(
+                        securePolicy = SecureFlagPolicy.SecureOn,
+                        isFocusable = true,
+                        shouldDismissOnBackPress = false
+                    )
                 ) {
-                    DetailPeminjamanAsetBS() { scope ->
+                    DetailPeminjamanAsetBS { scope ->
                         scope.launch { detailSheetState.hide() }.invokeOnCompletion {
-                            if (!detailSheetState.isVisible) {
-                                showBottomSheetDetail = false
-                            }
+                            showBottomSheetDetail = false
                         }
                     }
                 }
