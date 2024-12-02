@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/namaPeminjam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icMenu"
+            android:text="Nama Peminjam"
+            android:fontFamily="@font/sf_pro_500"
+            android:textSize="14sp"
+            android:textColor="@color/grey1"/>
+
+        <ImageView
+            android:id="@+id/icMenu"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_more_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/noPeminjaman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="12091029"
+            android:fontFamily="@font/sf_pro_400"
+            android:textSize="12sp"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/namaPeminjam"
+            app:layout_constraintEnd_toStartOf="@id/infoPeminjaman"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/infoPeminjaman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="asjkldhajksh"
+            android:fontFamily="@font/sf_pro_400"
+            android:textSize="12sp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintStart_toEndOf="@id/noPeminjaman"
+            app:layout_constraintTop_toBottomOf="@id/namaPeminjam"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lineSeparator2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/infoPeminjaman"
+            android:layout_marginTop="8dp" />
+
+        <simart.umby.android.component.CustomTitleContent
+            android:id="@+id/tanggalPinjam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/statusApproval"
+            android:layout_marginTop="8dp"/>
+
+        <simart.umby.android.component.CustomTitleContent
+            android:id="@+id/statusApproval"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tanggalPinjam"
+            android:layout_marginTop="8dp"/>
+
+        <simart.umby.android.component.CustomTitleContent
+            android:id="@+id/tanggalKembali"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tanggalPinjam"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/statusPeminjaman"
+            android:layout_marginTop="8dp"/>
+
+        <simart.umby.android.component.CustomTitleContent
+            android:id="@+id/statusPeminjaman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tanggalPinjam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tanggalKembali"
+            android:layout_marginTop="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

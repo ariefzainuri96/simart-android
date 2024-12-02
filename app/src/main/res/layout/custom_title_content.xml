@@ -21,6 +21,5 @@
         android:fontFamily="@font/sf_pro_500"
         android:textSize="14sp"
         android:textColor="@color/grey1"
-        android:layout_marginTop="4dp"
         android:text="content"/>
 </LinearLayout>

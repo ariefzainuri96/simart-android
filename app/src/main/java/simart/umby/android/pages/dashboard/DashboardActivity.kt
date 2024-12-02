@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import simart.umby.android.databinding.ActivityDashboardBinding
+import simart.umby.android.pages.ManajamenAset.ManajemenAsetActivity
 import simart.umby.android.pages.dashboard.adapter.MenuAdapter
 import simart.umby.android.pages.dashboard.adapter.NewsViewPagerAdapter
 import simart.umby.android.pages.dashboard.model.MenuModel
@@ -125,7 +126,7 @@ class DashboardActivity : AppCompatActivity() {
                 when (position) {
                     0 -> startActivity(Intent(this@DashboardActivity, ManajemenInventarisActivity::class.java))
                     1 -> println("Manajemen Barang Pakai Habis")
-                    2 -> println("Manajemen Aset")
+                    2 -> startActivity(Intent(this@DashboardActivity, ManajemenAsetActivity::class.java))
                     3-> startActivity(Intent(this@DashboardActivity, TaskApprovalActivity::class.java))
                 }   
             }
