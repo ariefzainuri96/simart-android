@@ -13,6 +13,7 @@ import simart.umby.android.data.repository.DashboardRepository
 import simart.umby.android.data.repository.DashboardRepositoryImpl
 import simart.umby.android.data.repository.LoginRepository
 import simart.umby.android.data.repository.LoginRepositoryImpl
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +25,13 @@ object AppModule {
     fun provideMyApi(): MyApi {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .callTimeout(5, TimeUnit.SECONDS)
+            .build()
 
         return Retrofit.Builder()
             .baseUrl("https://swapi.dev/api/")

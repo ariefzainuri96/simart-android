@@ -55,6 +55,13 @@
                 android:layout_height="24dp"
                 android:progressTint="#000"/>
         </LinearLayout>
+
+        <simart.umby.android.component.CustomError
+            android:id="@+id/errorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
     </FrameLayout>
 
 </LinearLayout>

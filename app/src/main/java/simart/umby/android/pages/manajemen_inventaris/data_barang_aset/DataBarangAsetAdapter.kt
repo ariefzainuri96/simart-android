@@ -28,18 +28,6 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
             binding.keterangan.text = "${data.jumlahAset} unit . ${data.sumberAset}"
             binding.deskripsi.text = data.deskripsiAset
             binding.spesifikasi.text = data.spesifikasi
-
-            binding.expandableView.setExtraMargin(16)
-            binding.expandableViewHeader.setOnClickListener {
-                binding.expandableView.setExpanded(!binding.expandableView.isExpanded)
-                binding.expandableViewIcon.setImageResource(if (binding.expandableView.isExpanded) R.drawable.ic_collapse else R.drawable.ic_expand)
-            }
-
-            binding.expandableDeskripsi.setExtraMargin(16)
-            binding.expandableDeskripsiHeader.setOnClickListener {
-                binding.expandableDeskripsi.setExpanded(!binding.expandableDeskripsi.isExpanded)
-                binding.expandableDeskripsiIcon.setImageResource(if (binding.expandableDeskripsi.isExpanded) R.drawable.ic_collapse else R.drawable.ic_expand)
-            }
         }
     }
 
@@ -57,6 +45,22 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.binding.expandableView.setExtraMargin(16)
+        holder.binding.expandableViewHeader.setOnClickListener {
+            holder.binding.expandableView.toggleExpanded()
+            holder.binding.expandableViewIcon.setImageResource(if (holder.binding.expandableView
+                .isExpanded) R
+                .drawable.ic_collapse else R.drawable.ic_expand)
+        }
+
+        holder.binding.expandableDeskripsi.setExtraMargin(16)
+        holder.binding.expandableDeskripsiHeader.setOnClickListener {
+            holder.binding.expandableDeskripsi.toggleExpanded()
+            holder.binding.expandableDeskripsiIcon.setImageResource(if (holder.binding
+                .expandableDeskripsi
+                .isExpanded) R.drawable.ic_collapse else R.drawable.ic_expand)
+        }
+
         holder.binding.icMenu.setOnClickListener {
             showPopupMenu(it, position, listDataBarang[position])
         }
@@ -89,8 +93,8 @@ class DataBarangAsetAdapter(val context: Context, private var listDataBarang: Li
         popupMenu.show()
     }
 
-    fun setOnClickListener(onClickListener: DataBarangAsetAdapterInterface) {
-        this.dataBarangAsetAdapterInterface = onClickListener
+    fun setInterface(dataBarangAsetAdapterInterface: DataBarangAsetAdapterInterface) {
+        this.dataBarangAsetAdapterInterface = dataBarangAsetAdapterInterface
     }
 
     override fun getItemCount(): Int = listDataBarang.count()

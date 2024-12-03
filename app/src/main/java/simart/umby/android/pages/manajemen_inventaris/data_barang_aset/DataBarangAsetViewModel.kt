@@ -2,27 +2,30 @@ package simart.umby.android.pages.manajemen_inventaris.data_barang_aset
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
 import simart.umby.android.utils.RequestState
 
 class DataBarangAsetViewModel: ViewModel() {
-    private var _listDataBarang = MutableStateFlow<List<DataBarangAsetModel>>(listOf())
-    var listDataBarang = _listDataBarang.asStateFlow()
-    
-    private var _state = MutableStateFlow(RequestState.IDLE)
-    var state = _state.asStateFlow()
+    var listDataBarang = MutableStateFlow<List<DataBarangAsetModel>>(listOf()); private set
+    var state = MutableStateFlow(RequestState.IDLE); private set
     
     fun getDataBarangAset() {
-        _state.value = RequestState.LOADING
+        val handler = CoroutineExceptionHandler {_, throwable ->
+            println("Error happening: $throwable")
+
+            state.value = RequestState.ERROR
+        }
+
+        state.value = RequestState.LOADING
         
-        viewModelScope.launch {
+        viewModelScope.launch(handler) {
             delay(1000L)
             
-            _listDataBarang.value = listOf<DataBarangAsetModel>(
+            listDataBarang.value = listOf<DataBarangAsetModel>(
                 DataBarangAsetModel(noInventaris = "INV-GR-FTI-2024", namaAset = "Komputer aset untuk Admin 1 kantor kampus II", jumlahAset = "12", sumberAset = "Ruang 4D", deskripsiAset = "Lorem ipsum dolor sit amet consectetur. Dignissim lacus gravida porttitor potenti justo.", spesifikasi = "Apple MacBook Air M1\n" +
                         "Layar : 13,3 inci IPS (2560 x 1600 piksel) 227 ppi\n" +
                         "Prosesor : chip Apple M1\n" +
@@ -35,7 +38,7 @@ class DataBarangAsetViewModel: ViewModel() {
                         "Baterai : Li-Polimer, 49,9 Wh")
             )
 
-            _state.value = RequestState.SUCCESS
+            state.value = RequestState.SUCCESS
         }
     }
     

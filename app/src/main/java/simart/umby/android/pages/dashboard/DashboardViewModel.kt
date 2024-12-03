@@ -23,8 +23,7 @@ class DashboardViewModel @Inject constructor (
     private val repository: DashboardRepository,
     private val appContext: Application
 ): ViewModel() {
-    var news = mutableListOf<NewsModel>()
-        private set
+    var news = listOf<NewsModel>(); private set
 
     private var _newsState = MutableStateFlow(RequestState.IDLE)
     val newsState = _newsState.asStateFlow()
@@ -36,7 +35,7 @@ class DashboardViewModel @Inject constructor (
         MenuModel("Task Approval", R.drawable.ic_check_square, appContext.applicationContext.getColor(R.color.green)),
     )
 
-    private fun getNews() {
+    fun getNews() {
         val handler = CoroutineExceptionHandler {_, throwable ->
             println("Error happening: $throwable")
 
@@ -51,13 +50,13 @@ class DashboardViewModel @Inject constructor (
 
                 if (response.isSuccessful) {
                     response.body()?.results?.let { planets ->
-                        news.addAll(planets.map { item ->
+                        news = planets.map { item ->
                             NewsModel(
                                 item?.name ?: "",
                                 item?.created ?: "",
                                 "${item?.orbitalPeriod} - ${item?.rotationPeriod} - ${item?.surfaceWater}"
                             )
-                        })
+                        }
                     }
                 } else {
                     println("Failed get planets, Error: ${response.errorBody()}")

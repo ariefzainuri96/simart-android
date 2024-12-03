@@ -43,19 +43,22 @@ class DataBarangAsetActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
+        binding.errorLayout.apply {
+            setHandleClickListener { viewModel.getDataBarangAset() }
+        }
     }
 
     private fun setupDataBarangAsetAdapter() {
         val adapter = DataBarangAsetAdapter(this, viewModel.listDataBarang.value)
 
-        adapter.setOnClickListener(object : DataBarangAsetAdapterInterface {
+        adapter.setInterface(object : DataBarangAsetAdapterInterface {
             override fun onEditClick(
                 position: Int,
                 model: DataBarangAsetModel
             ) {
-                val dialog = EditDataBarangAsetBS(model)
+                val bottomSheet = EditDataBarangAsetBS(model)
 
-                dialog.show(supportFragmentManager, EditDataBarangAsetBS::class.java.simpleName)
+                bottomSheet.show(supportFragmentManager, EditDataBarangAsetBS::class.java.simpleName)
             }
 
             override fun onDeleteClick(
@@ -74,6 +77,7 @@ class DataBarangAsetActivity : AppCompatActivity() {
     private fun observeData() {
         collectLatestLifeCycleFlow(viewModel.state) {
             binding.loadingLayout.visibility = if (it == RequestState.LOADING) View.VISIBLE else View.GONE
+            binding.errorLayout.visibility = if (it == RequestState.ERROR) View.VISIBLE else View.GONE
 
             if (it == RequestState.SUCCESS) {
                 setupDataBarangAsetAdapter()

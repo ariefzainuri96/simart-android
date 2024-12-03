@@ -49,10 +49,8 @@ class ExpandableView @JvmOverloads constructor(
         this.extraMargin = margin
     }
 
-    fun setExpanded(expand: Boolean, animate: Boolean = true) {
-        if (isExpanded == expand) return
-
-        isExpanded = expand
+    fun toggleExpanded(animate: Boolean = true) {
+        isExpanded = !isExpanded
 
         // Measure the expanded height dynamically
         measureExpandedHeight()
@@ -60,8 +58,8 @@ class ExpandableView @JvmOverloads constructor(
         if (animate) {
             animateExpansion()
         } else {
-            contentView?.visibility = if (expand) VISIBLE else GONE
-            contentView?.layoutParams?.height = if (expand) expandedHeight else 0
+            contentView?.visibility = if (isExpanded) VISIBLE else GONE
+            contentView?.layoutParams?.height = if (isExpanded) expandedHeight else 0
             contentView?.requestLayout()
         }
     }

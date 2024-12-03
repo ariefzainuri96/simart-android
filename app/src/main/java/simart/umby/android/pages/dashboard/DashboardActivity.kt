@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import simart.umby.android.R
 import simart.umby.android.databinding.ActivityDashboardBinding
 import simart.umby.android.pages.ManajamenAset.ManajemenAsetActivity
 import simart.umby.android.pages.dashboard.adapter.MenuAdapter
@@ -51,8 +52,6 @@ class DashboardActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     // add delay to wait until scanner activity is closed
                     delay(500L)
-
-                    println("goToInformasiAset")
 
                     val dialog = InformasiAsetBS(barcodes.first().rawValue!!)
 
@@ -103,12 +102,21 @@ class DashboardActivity : AppCompatActivity() {
         binding.scanQRLayout.setOnClickListener {
             requestCameraAndStartScanner()
         }
+
+        binding.newsError.apply {
+            setHandleClickListener { viewModel.getNews() }
+//            setInterface(object : CustomErrorInterface {
+//                override fun handleRetryClickListener() = viewModel.getNews()
+//            })
+
+            setLayout(textColor = R.color.white, iconColor = R.color.white)
+        }
     }
 
     private fun observeData() {
         collectLatestLifeCycleFlow(viewModel.newsState) { state ->
             binding.newsLoading.visibility = if (state == RequestState.LOADING) View.VISIBLE else View.GONE
-            binding.errorLayout.visibility = if (state == RequestState.ERROR) View.VISIBLE else View.GONE
+            binding.newsError.visibility = if (state == RequestState.ERROR) View.VISIBLE else View.GONE
 
             if (state == RequestState.SUCCESS) {
                 setupNewsViewPager()
@@ -118,6 +126,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setMenuRecyclerView() {
         val adapter = MenuAdapter(viewModel.menus)
+
         adapter.setOnClickListener(object : MenuAdapter.OnClickListener {
             override fun onClick(
                 position: Int,
