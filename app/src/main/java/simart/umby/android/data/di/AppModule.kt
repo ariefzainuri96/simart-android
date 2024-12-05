@@ -13,6 +13,8 @@ import simart.umby.android.data.repository.DashboardRepository
 import simart.umby.android.data.repository.DashboardRepositoryImpl
 import simart.umby.android.data.repository.LoginRepository
 import simart.umby.android.data.repository.LoginRepositoryImpl
+import simart.umby.android.data.repository.TaskApprovalRepository
+import simart.umby.android.data.repository.TaskApprovalRepositoryImpl
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -51,5 +53,11 @@ object AppModule {
     @Singleton
     fun providedLoginRepository(api: MyApi): LoginRepository {
         return LoginRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providedTaskApprovalRepository(api: MyApi): TaskApprovalRepository {
+        return TaskApprovalRepositoryImpl(api)
     }
 }

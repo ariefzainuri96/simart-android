@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import simart.umby.android.model.TaskApprovalModel
 import simart.umby.android.utils.RequestState
@@ -16,11 +15,8 @@ import javax.inject.Inject
 class TaskApprovalVM @Inject constructor(
     private val app: Application
 ) : ViewModel() {
-    private var _taskApprovals = MutableStateFlow(listOf<TaskApprovalModel>())
-    var taskApprovals = _taskApprovals.asStateFlow()
-
-    var taskApprovalsState = MutableStateFlow(RequestState.IDLE)
-        private set
+    var taskApprovals = MutableStateFlow(listOf<TaskApprovalModel>()); private set
+    var taskApprovalsState = MutableStateFlow(RequestState.IDLE); private set
 
     fun getTaskApprovals() {
         viewModelScope.launch {
@@ -28,7 +24,7 @@ class TaskApprovalVM @Inject constructor(
 
             delay(1000L)
 
-            _taskApprovals.value = listOf<TaskApprovalModel>(
+            taskApprovals.value = listOf<TaskApprovalModel>(
                 TaskApprovalModel(
                     "Peminjaman Aset1",
                     "Nama Aset1",

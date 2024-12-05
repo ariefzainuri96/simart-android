@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -23,11 +26,22 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import simart.umby.android.R
+import simart.umby.android.component.compose.Center
 import simart.umby.android.component.compose.CustomTopbar
 import simart.umby.android.component.compose.TransparentStatusBar
 import simart.umby.android.component.compose.theme.SimartUmbyTheme
 import simart.umby.android.model.TaskApprovalModel
 import simart.umby.android.pages.task_approval.component.TaskApprovalItem
+import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
+import simart.umby.android.pages.task_approval.section.detail_peminjaman_aset.DetailPeminjamanAsetBSVM
+import simart.umby.android.utils.RequestState
+
+val LocalDetailPeminjamanAsetBSVM = compositionLocalOf<DetailPeminjamanAsetBSVM> {
+    error("DetailPeminjamanAsetBSVM not provided")
+}
+val LocalApprovePermintaanBarangBSVM = compositionLocalOf<ApprovePermintaanBarangBSVM> {
+    error("ApprovePermintaanBarangBSVM not provided")
+}
 
 @AndroidEntryPoint
 class TaskApprovalActivity : ComponentActivity() {
@@ -48,8 +62,12 @@ class TaskApprovalActivity : ComponentActivity() {
 
 @Composable
 fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivity) {
+    val detailPeminjamanAsetBSVM = viewModel<DetailPeminjamanAsetBSVM>()
+    val approvePermintaanBarangBSVM = viewModel<ApprovePermintaanBarangBSVM>()
     val viewModel = viewModel<TaskApprovalVM>()
+
     val tasks = viewModel.taskApprovals.collectAsState()
+    val state = viewModel.taskApprovalsState.collectAsState()
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -65,18 +83,37 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
                 )
             }
         }) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp)
-        ) {
-            itemsIndexed(tasks.value) { index, task ->
-                TaskApprovalItem(
-                    task,
-                    modifier = Modifier.padding(top = if (index == 0) 16.dp else 0.dp)
+        if (state.value == RequestState.LOADING) {
+            Center {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
                 )
-                HorizontalDivider(color = colorResource(R.color.transparent), thickness = 8.dp)
+            }
+        } else {
+            CompositionLocalProvider(
+                LocalDetailPeminjamanAsetBSVM provides
+                        detailPeminjamanAsetBSVM
+            ) {
+                CompositionLocalProvider(LocalApprovePermintaanBarangBSVM provides
+                        approvePermintaanBarangBSVM) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 16.dp)
+                    ) {
+                        itemsIndexed(tasks.value) { index, task ->
+                            TaskApprovalItem(
+                                task,
+                                modifier = Modifier.padding(top = if (index == 0) 16.dp else 0.dp)
+                            )
+                            HorizontalDivider(
+                                color = colorResource(R.color.transparent),
+                                thickness = 8.dp
+                            )
+                        }
+                    }
+                }
             }
         }
     }

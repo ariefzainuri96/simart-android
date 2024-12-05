@@ -22,16 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.CoroutineScope
 import simart.umby.android.R
 import simart.umby.android.component.compose.ButtonType
 import simart.umby.android.component.compose.CustomButton
 import simart.umby.android.component.compose.CustomTextField
 import simart.umby.android.component.compose.theme.SfPro500
+import simart.umby.android.pages.task_approval.LocalApprovePermintaanBarangBSVM
 
 @Composable
 fun ApprovePermintaanBarangBS(
@@ -39,7 +38,7 @@ fun ApprovePermintaanBarangBS(
     onCloseClick: (CoroutineScope) -> Unit
 ) {
     val scope = rememberCoroutineScope()
-    val viewModel = viewModel<ApprovePermintaanBarangBSVM>()
+    val viewModel = LocalApprovePermintaanBarangBSVM.current
     val keterangan = viewModel.form.collectAsState()
 
     Column(
@@ -116,13 +115,5 @@ fun ApprovePermintaanBarangBS(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun ApprovePermintaanBarangBSPreview() {
-    ApprovePermintaanBarangBS {
-
     }
 }

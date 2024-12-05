@@ -46,7 +46,12 @@ class ApprovePermintaanBarangBSVM @Inject constructor(
     }
 
     fun resetState() {
+        println("resetState")
         _form.value = ""
         _state.value = RequestState.IDLE
+    }
+
+    init {
+        println("init ApprovePermintaanBarangBSVM")
     }
 }

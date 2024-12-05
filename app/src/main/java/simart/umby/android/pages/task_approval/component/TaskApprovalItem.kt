@@ -39,22 +39,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.SecureFlagPolicy
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import simart.umby.android.R
 import simart.umby.android.component.compose.theme.SfPro400
 import simart.umby.android.component.compose.theme.SfPro500
 import simart.umby.android.component.compose.theme.SfPro700
 import simart.umby.android.model.TaskApprovalModel
+import simart.umby.android.pages.task_approval.LocalApprovePermintaanBarangBSVM
+import simart.umby.android.pages.task_approval.LocalDetailPeminjamanAsetBSVM
 import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBS
-import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
 import simart.umby.android.pages.task_approval.section.detail_peminjaman_aset.DetailPeminjamanAsetBS
 import simart.umby.android.utils.crop
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
-    val viewModel = viewModel<ApprovePermintaanBarangBSVM>()
+    val viewModel = LocalApprovePermintaanBarangBSVM.current
+    val detailPeminjamanAsetVM = LocalDetailPeminjamanAsetBSVM.current
+
     val approveSheetState = rememberModalBottomSheetState()
     val detailSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -136,7 +138,10 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                             },
                             onClick = {
                                 expanded = !expanded
+
                                 showBottomSheetDetail = !showBottomSheetDetail
+
+                                detailPeminjamanAsetVM.getDetailData()
                             }
                         )
 
@@ -257,6 +262,11 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                 ) {
                     DetailPeminjamanAsetBS { scope ->
                         scope.launch { detailSheetState.hide() }.invokeOnCompletion {
+                            // reset the state of the view model down here
+                            // because we leave the onDismissRequest empty, the LaunchedEffect
+                            // for detailSheetState.currentValue will not be called
+                            detailPeminjamanAsetVM.reset()
+
                             showBottomSheetDetail = false
                         }
                     }
