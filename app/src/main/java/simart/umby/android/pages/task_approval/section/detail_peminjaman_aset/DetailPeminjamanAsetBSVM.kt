@@ -1,5 +1,6 @@
 package simart.umby.android.pages.task_approval.section.detail_peminjaman_aset
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailPeminjamanAsetBSVM @Inject constructor(
-    private val repository: TaskApprovalRepository
+    private val repository: TaskApprovalRepository,
+    private val appContext: Application
 ) : ViewModel() {
     var state = MutableStateFlow(RequestState.IDLE); private set
     var detailData = MutableStateFlow(TaskApprovalModel()); private set
@@ -46,4 +48,6 @@ class DetailPeminjamanAsetBSVM @Inject constructor(
     init {
         println("init DetailPeminjamanAsetBSVM")
     }
+
+    fun getContext() = appContext
 }

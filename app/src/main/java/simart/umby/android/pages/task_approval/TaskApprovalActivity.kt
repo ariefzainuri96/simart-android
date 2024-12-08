@@ -2,8 +2,10 @@ package simart.umby.android.pages.task_approval
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,16 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import simart.umby.android.R
 import simart.umby.android.component.compose.Center
 import simart.umby.android.component.compose.CustomTopbar
-import simart.umby.android.component.compose.TransparentStatusBar
 import simart.umby.android.component.compose.theme.SimartUmbyTheme
-import simart.umby.android.model.TaskApprovalModel
 import simart.umby.android.pages.task_approval.component.TaskApprovalItem
 import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
 import simart.umby.android.pages.task_approval.section.detail_peminjaman_aset.DetailPeminjamanAsetBSVM
@@ -48,12 +47,10 @@ class TaskApprovalActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.defaultStatusBar)))
 
         setContent {
             SimartUmbyTheme {
-                TransparentStatusBar()
-
                 TaskApprovalContent(context = this)
             }
         }
@@ -69,8 +66,10 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
     val tasks = viewModel.taskApprovals.collectAsState()
     val state = viewModel.taskApprovalsState.collectAsState()
 
+//    Utils.Companion.setStatusBarShown(context, LocalView.current)
+
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().background(colorResource(R.color.white)),
         topBar = {
             CustomTopbar(title = "Task Approval (23)", onBackClick = {
                 context.finish()
@@ -109,28 +108,12 @@ fun TaskApprovalContent(modifier: Modifier = Modifier, context: ComponentActivit
                             )
                             HorizontalDivider(
                                 color = colorResource(R.color.transparent),
-                                thickness = 8.dp
+                                thickness = 10.dp
                             )
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    SimartUmbyTheme {
-        TaskApprovalItem(
-            TaskApprovalModel(
-                "Peminjaman Aset",
-                "Nama Aset",
-                "1212",
-                "Date",
-                "Status"
-            )
-        )
     }
 }

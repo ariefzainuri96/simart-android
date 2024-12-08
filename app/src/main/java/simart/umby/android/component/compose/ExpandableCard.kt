@@ -13,10 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -31,8 +32,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import simart.umby.android.R
-import simart.umby.android.component.compose.theme.CustomRippleTheme
+import simart.umby.android.component.compose.theme.CustomRippleConfiguration
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpandableCard(
     backgroundColor: Int = R.color.transparent,
@@ -50,7 +52,7 @@ fun ExpandableCard(
         targetValue = if (expandedState) 180f else 0f, label = ""
     )
 
-    CompositionLocalProvider(LocalRippleTheme provides CustomRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides CustomRippleConfiguration) {
         Card(
             modifier = modifier
                 .fillMaxWidth()
@@ -82,10 +84,10 @@ fun ExpandableCard(
                     )
                 }
 
-                Spacer(Modifier.height(contentExpandedSpacerHeight))
-
                 // put your expanded content here
                 if (expandedState) {
+                    Spacer(Modifier.height(contentExpandedSpacerHeight))
+
                     expandableContent()
                 }
             }

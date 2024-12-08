@@ -97,7 +97,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        Utils.Companion.setStatusBarTransparent(this, binding.root)
+        Utils.Companion.setStatusBarShown(this, binding.root)
 
         binding.scanQRLayout.setOnClickListener {
             requestCameraAndStartScanner()

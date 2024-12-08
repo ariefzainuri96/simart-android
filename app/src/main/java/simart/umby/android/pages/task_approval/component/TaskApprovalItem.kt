@@ -19,11 +19,9 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -32,6 +30,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -56,6 +56,7 @@ import simart.umby.android.utils.crop
 fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
     val viewModel = LocalApprovePermintaanBarangBSVM.current
     val detailPeminjamanAsetVM = LocalDetailPeminjamanAsetBSVM.current
+    val context = LocalContext.current
 
     val approveSheetState = rememberModalBottomSheetState()
     val detailSheetState = rememberModalBottomSheetState(
@@ -74,11 +75,24 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
         }
     }
 
-    Surface(
-        shape = RoundedCornerShape(6.dp),
-        color = MaterialTheme.colorScheme.background,
-        shadowElevation = 4.dp,
+//    SideEffect {
+//        Utils.Companion.setStatusBarShown(detailPeminjamanAsetVM.getContext().applicationContext.findActivity(),
+//            LocalView
+//            .current)
+//    }
+
+//    LaunchedEffect(detailSheetState) {
+//        if (detailSheetState.currentValue == SheetValue.Expanded) {
+//            val context = LocalContext.current
+//            Utils.Companion.setStatusBarShown(LocalContext.current.findActivity(), LocalView.current)
+//        }
+//    }
+
+    Box(
         modifier = modifier
+            .shadow(elevation = 10.dp, shape = RoundedCornerShape(6.dp), spotColor = colorResource
+                (R.color.black).copy(alpha = 0.15f))
+            .background(colorResource(R.color.white))
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
@@ -234,9 +248,7 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                         // leave this empty to prevent dismiss by swipe or clicking outside
                         showBottomSheetApprove = false
                     },
-                    dragHandle = {
-                        // leave this empty to hide bottomsheet header
-                    },
+                    dragHandle = null,
                 ) {
                     ApprovePermintaanBarangBS { scope ->
                         scope.launch { approveSheetState.hide() }.invokeOnCompletion {
@@ -256,9 +268,9 @@ fun TaskApprovalItem(data: TaskApprovalModel, modifier: Modifier = Modifier) {
                     shape = RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp),
                     properties = ModalBottomSheetProperties(
                         securePolicy = SecureFlagPolicy.SecureOn,
-                        isFocusable = true,
-                        shouldDismissOnBackPress = false
-                    )
+                        shouldDismissOnBackPress = false,
+//                        decorFitsSystemWindows = false
+                    ),
                 ) {
                     DetailPeminjamanAsetBS { scope ->
                         scope.launch { detailSheetState.hide() }.invokeOnCompletion {

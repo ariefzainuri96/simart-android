@@ -29,7 +29,11 @@ import simart.umby.android.R
 import simart.umby.android.utils.Utils
 
 @Composable
-fun CustomTopbar(title: String, onBackClick: () -> Unit, action: @Composable RowScope.() -> Unit = {}) {
+fun CustomTopbar(
+    title: String,
+    onBackClick: () -> Unit,
+    action: @Composable RowScope.() -> Unit = {}
+) {
     val paddingValues = WindowInsets.systemBars.asPaddingValues()
 
     Row(
@@ -38,18 +42,32 @@ fun CustomTopbar(title: String, onBackClick: () -> Unit, action: @Composable Row
             .fillMaxWidth()
             .background(colorResource(R.color.primary))
             .height(64.dp + paddingValues.calculateTopPadding())
-            .windowInsetsPadding(WindowInsets.systemBars)
-        ,
-        ) {
+            .windowInsetsPadding(WindowInsets.systemBars),
+    ) {
         Spacer(Modifier.width(16.dp))
-        Icon(painter = painterResource(R.drawable.ic_back), modifier = Modifier.size(20.dp).clickable {
-            onBackClick()
-        }, tint = Color.White, contentDescription = null)
+        Icon(
+            painter = painterResource(R.drawable.ic_back),
+            modifier = Modifier
+                .size(20.dp)
+                .clickable {
+                    onBackClick()
+                },
+            tint = Color.White,
+            contentDescription = null
+        )
         Spacer(Modifier.width(8.dp))
-        Text(text = title, fontSize = 18.sp, color = Color.White, fontFamily = Utils.FontName, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+        Text(
+            text = title,
+            fontSize = 18.sp,
+            color = Color.White,
+            fontFamily = Utils.FontName,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.weight(1f)
+        )
         action()
         Spacer(Modifier.width(16.dp))
     }
+
 }
 
 @Preview(showBackground = true)
