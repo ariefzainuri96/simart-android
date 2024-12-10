@@ -35,8 +35,11 @@ object AppModule {
             .callTimeout(5, TimeUnit.SECONDS)
             .build()
 
+        // 192.168.124.187 -> local ip server -> open cmd -> run command "ipconfig"
+        // 9000 -> running port
+        // update network_security_config.xml with local ip
         return Retrofit.Builder()
-            .baseUrl("https://swapi.dev/api/")
+            .baseUrl("http://192.168.124.187:9000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

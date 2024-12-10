@@ -8,25 +8,22 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import simart.umby.android.R
 import simart.umby.android.data.repository.DashboardRepository
-import simart.umby.android.pages.dashboard.model.MenuModel
-import simart.umby.android.pages.dashboard.model.NewsModel
+import simart.umby.android.data.response.PengumumanData
+import simart.umby.android.model.dashboard.MenuModel
 import simart.umby.android.utils.RequestState
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor (
     private val repository: DashboardRepository,
-    private val appContext: Application
+    appContext: Application
 ): ViewModel() {
-    var news = listOf<NewsModel>(); private set
-
-    private var _newsState = MutableStateFlow(RequestState.IDLE)
-    val newsState = _newsState.asStateFlow()
+    var news = MutableStateFlow(listOf<PengumumanData>()); private set
+    var newsState = MutableStateFlow(RequestState.IDLE); private set
 
     val menus = listOf<MenuModel>(
         MenuModel("Manajemen Inventaris", R.drawable.ic_manajemen_inventaris, appContext.applicationContext.getColor(R.color.blue2)),
@@ -39,30 +36,18 @@ class DashboardViewModel @Inject constructor (
         val handler = CoroutineExceptionHandler {_, throwable ->
             println("Error happening: $throwable")
 
-            _newsState.value = RequestState.ERROR
+            newsState.value = RequestState.ERROR
         }
 
-        _newsState.value = RequestState.LOADING
+        newsState.value = RequestState.LOADING
 
         viewModelScope.launch(handler) {
             withContext(Dispatchers.IO) {
-                val response = (async { repository.doNetworkCall(1) }).await()
+                val response = (async { repository.getPengumuman() }).await()
 
-                if (response.isSuccessful) {
-                    response.body()?.results?.let { planets ->
-                        news = planets.map { item ->
-                            NewsModel(
-                                item?.name ?: "",
-                                item?.created ?: "",
-                                "${item?.orbitalPeriod} - ${item?.rotationPeriod} - ${item?.surfaceWater}"
-                            )
-                        }
-                    }
-                } else {
-                    println("Failed get planets, Error: ${response.errorBody()}")
-                }
+                response.body()?.data?.let { news.value = it }
 
-                _newsState.value = if (response.isSuccessful) RequestState.SUCCESS else RequestState.ERROR
+                newsState.value = if (response.isSuccessful) RequestState.SUCCESS else RequestState.ERROR
             }
         }
     }

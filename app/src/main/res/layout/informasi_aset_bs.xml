@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <simart.umby.android.component.CustomAppbarBS
+        <simart.umby.android.component.reusable.CustomAppbarBS
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,13 +30,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/noPO"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="No. PO"/>
 
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/noGRInvoice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -52,14 +52,14 @@
                         android:layout_marginTop="16dp"
                         android:textColor="@color/primary"/>
 
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/noSPK"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="No. SPK"
                         android:layout_marginTop="16dp"/>
 
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/vendor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,91 +77,91 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/tipeAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Tipe Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/noInventaris"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="No. Inventaris"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/noBBK"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="No. BBK"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/namaAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Nama Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/deskripsiAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Deskripsi Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/spesifikasiAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Spesifikasi Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/kategoriAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Kategori Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/subKategoriAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Sub Kategori Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/kampus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Kampus"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/ruang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Ruang"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/convidentality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Convidentality"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/integrity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Integrity"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/availability"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Availability"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/tanggalAkuisisi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Tanggal Akuisisi"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/tanggalDepresiasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -174,25 +174,25 @@
                         android:text="Aset Terdepresiasi"
                         android:fontFamily="@font/sf_pro_500"
                         android:textColor="@color/primary"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/sumberAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Sumber Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/jumlahAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="Jumlah Aset"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/nvb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="NVB"
                         android:layout_marginTop="16dp"/>
-                    <simart.umby.android.component.CustomTitleContent
+                    <simart.umby.android.component.reusable.CustomTitleContent
                         android:id="@+id/statusAset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -14,14 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import simart.umby.android.R
+import simart.umby.android.adapter.dashboard.MenuAdapter
+import simart.umby.android.adapter.dashboard.NewsViewPagerAdapter
 import simart.umby.android.databinding.ActivityDashboardBinding
-import simart.umby.android.pages.ManajamenAset.ManajemenAsetActivity
-import simart.umby.android.pages.dashboard.adapter.MenuAdapter
-import simart.umby.android.pages.dashboard.adapter.NewsViewPagerAdapter
-import simart.umby.android.pages.dashboard.model.MenuModel
+import simart.umby.android.model.dashboard.MenuModel
+import simart.umby.android.pages.manajemen_aset.ManajemenAsetActivity
 import simart.umby.android.pages.manajemen_inventaris.ManajemenInventarisActivity
 import simart.umby.android.pages.scanner.ScannerActivity
-import simart.umby.android.pages.scanner.informasiAsetBS.InformasiAsetBS
+import simart.umby.android.pages.scanner.informasi_aset_bs.InformasiAsetBS
 import simart.umby.android.pages.task_approval.TaskApprovalActivity
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
@@ -147,7 +147,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupNewsViewPager() {
-        binding.newsViewPager.adapter = NewsViewPagerAdapter(viewModel.news)
+        binding.newsViewPager.adapter = NewsViewPagerAdapter(viewModel.news.value)
 
         //set the orientation of the viewpager using ViewPager2.orientation
         binding.newsViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL

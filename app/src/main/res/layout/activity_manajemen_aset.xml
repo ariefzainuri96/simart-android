@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".pages.ManajamenAset.ManajemenAsetActivity">
+    tools:context=".pages.manajemen_aset.ManajemenAsetActivity">
 
     <LinearLayout
         android:id="@+id/toolbarLayout"
@@ -27,7 +27,7 @@
 
     </LinearLayout>
 
-    <simart.umby.android.component.CommonMenu
+    <simart.umby.android.component.reusable.CommonMenu
         android:id="@+id/peminjamanAset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -37,7 +37,7 @@
         android:layout_height="1dp"
         app:dividerColor="@color/lineSeparator2"/>
 
-    <simart.umby.android.component.CommonMenu
+    <simart.umby.android.component.reusable.CommonMenu
         android:id="@+id/tracingAset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -47,7 +47,7 @@
         android:layout_height="1dp"
         app:dividerColor="@color/lineSeparator2"/>
 
-    <simart.umby.android.component.CommonMenu
+    <simart.umby.android.component.reusable.CommonMenu
         android:id="@+id/pemindahanAset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -57,7 +57,7 @@
         android:layout_height="1dp"
         app:dividerColor="@color/lineSeparator2"/>
 
-    <simart.umby.android.component.CommonMenu
+    <simart.umby.android.component.reusable.CommonMenu
         android:id="@+id/pemeliharaanAset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

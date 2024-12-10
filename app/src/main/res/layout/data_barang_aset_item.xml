@@ -96,7 +96,7 @@
                 android:src="@drawable/ic_expand"
                 app:tint="@color/textPrimary"/>
         </LinearLayout>
-        <simart.umby.android.component.ExpandableView
+        <simart.umby.android.component.reusable.ExpandableView
             android:id="@+id/expandableDeskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 />
-        </simart.umby.android.component.ExpandableView>
+        </simart.umby.android.component.reusable.ExpandableView>
 
         <View
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
 
         <!-- spesifikasi -->
         <LinearLayout
-            android:id="@+id/expandableViewHeader"
+            android:id="@+id/expandableSpesifikasiHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -131,25 +131,22 @@
                 android:textSize="14sp"
                 android:textColor="@color/grey1"/>
             <ImageView
-                android:id="@+id/expandableViewIcon"
+                android:id="@+id/expandableSpesifikasiIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 app:tint="@color/textPrimary"
                 android:src="@drawable/ic_expand"/>
         </LinearLayout>
-        <simart.umby.android.component.ExpandableView
-            android:id="@+id/expandableView"
+        <simart.umby.android.component.reusable.ExpandableView
+            android:id="@+id/expandableSpesifikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/spesifikasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Apple MacBook Air M1
-Layar : 13,3 inci IPS (2560 x 1600 piksel) 227 ppi
-Prosesor : chip Apple M1
-Kartu grafik :-"/>
-        </simart.umby.android.component.ExpandableView>
+                android:text=""/>
+        </simart.umby.android.component.reusable.ExpandableView>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

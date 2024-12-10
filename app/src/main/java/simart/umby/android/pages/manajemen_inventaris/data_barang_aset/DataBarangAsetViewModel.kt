@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
+import simart.umby.android.model.manajemen_inventaris.DataBarangAsetModel
 import simart.umby.android.utils.RequestState
 
 class DataBarangAsetViewModel: ViewModel() {

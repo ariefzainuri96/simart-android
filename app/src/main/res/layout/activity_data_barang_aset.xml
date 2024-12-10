@@ -56,7 +56,7 @@
                 android:progressTint="#000"/>
         </LinearLayout>
 
-        <simart.umby.android.component.CustomError
+        <simart.umby.android.component.reusable.CustomError
             android:id="@+id/errorLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

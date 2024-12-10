@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@id/infoPeminjaman"
             android:layout_marginTop="8dp" />
 
-        <simart.umby.android.component.CustomTitleContent
+        <simart.umby.android.component.reusable.CustomTitleContent
             android:id="@+id/tanggalPinjam"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             app:layout_constraintEnd_toStartOf="@id/statusApproval"
             android:layout_marginTop="8dp"/>
 
-        <simart.umby.android.component.CustomTitleContent
+        <simart.umby.android.component.reusable.CustomTitleContent
             android:id="@+id/statusApproval"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             app:layout_constraintStart_toEndOf="@id/tanggalPinjam"
             android:layout_marginTop="8dp"/>
 
-        <simart.umby.android.component.CustomTitleContent
+        <simart.umby.android.component.reusable.CustomTitleContent
             android:id="@+id/tanggalKembali"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             app:layout_constraintEnd_toStartOf="@id/statusPeminjaman"
             android:layout_marginTop="8dp"/>
 
-        <simart.umby.android.component.CustomTitleContent
+        <simart.umby.android.component.reusable.CustomTitleContent
             android:id="@+id/statusPeminjaman"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -30,9 +30,9 @@ import simart.umby.android.R
 import simart.umby.android.component.compose.Center
 import simart.umby.android.component.compose.CustomTopbar
 import simart.umby.android.component.compose.theme.SimartUmbyTheme
-import simart.umby.android.pages.task_approval.component.TaskApprovalItem
-import simart.umby.android.pages.task_approval.section.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
-import simart.umby.android.pages.task_approval.section.detail_peminjaman_aset.DetailPeminjamanAsetBSVM
+import simart.umby.android.component.page.task_approval.TaskApprovalItem
+import simart.umby.android.pages.task_approval.approve_permintaan_barang_bs.ApprovePermintaanBarangBSVM
+import simart.umby.android.pages.task_approval.detail_peminjaman_aset_bs.DetailPeminjamanAsetBSVM
 import simart.umby.android.utils.RequestState
 
 val LocalDetailPeminjamanAsetBSVM = compositionLocalOf<DetailPeminjamanAsetBSVM> {

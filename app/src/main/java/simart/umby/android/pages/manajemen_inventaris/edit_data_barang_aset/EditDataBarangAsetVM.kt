@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
+import simart.umby.android.model.manajemen_inventaris.DataBarangAsetModel
 import simart.umby.android.utils.RequestState
 import javax.inject.Inject
 import kotlin.collections.mutableListOf

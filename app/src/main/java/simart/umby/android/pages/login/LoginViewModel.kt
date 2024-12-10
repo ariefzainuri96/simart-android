@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import simart.umby.android.data.repository.LoginRepository
-import simart.umby.android.pages.login.model.LoginFormModel
+import simart.umby.android.model.login.LoginFormModel
 import simart.umby.android.utils.PreferenceKeys
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.dataStore

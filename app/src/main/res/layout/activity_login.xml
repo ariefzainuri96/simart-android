@@ -42,7 +42,7 @@
             android:textColor="@color/textPrimary"
             android:textAlignment="center"/>
 
-        <simart.umby.android.component.CustomTextEdit
+        <simart.umby.android.component.reusable.CustomTextEdit
             android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:layout_marginTop="16dp"
             />
 
-        <simart.umby.android.component.CustomTextEdit
+        <simart.umby.android.component.reusable.CustomTextEdit
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

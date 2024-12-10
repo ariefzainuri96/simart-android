@@ -82,7 +82,7 @@
                 android:indeterminateTintMode="src_atop"
                 android:indeterminateTint="@color/white"
                 />
-            <simart.umby.android.component.CustomError
+            <simart.umby.android.component.reusable.CustomError
                 android:id="@+id/newsError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

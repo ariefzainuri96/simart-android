@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <simart.umby.android.component.CustomAppbarBS
+        <simart.umby.android.component.reusable.CustomAppbarBS
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <simart.umby.android.component.CustomTextEdit
+                <simart.umby.android.component.reusable.CustomTextEdit
                     android:id="@+id/noInventaris"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"/>
 
-                <simart.umby.android.component.CustomTextEdit
+                <simart.umby.android.component.reusable.CustomTextEdit
                     android:id="@+id/namaAset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                     android:maxLines="1"
                     android:imeOptions="actionNext"/>
 
-                <simart.umby.android.component.CustomTextEdit
+                <simart.umby.android.component.reusable.CustomTextEdit
                     android:id="@+id/deskripsiAset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textMultiLine"/>
 
-                <simart.umby.android.component.CustomTextEdit
+                <simart.umby.android.component.reusable.CustomTextEdit
                     android:id="@+id/spesifikasiAset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textMultiLine"/>
 
-                <simart.umby.android.component.CustomCheckbox
+                <simart.umby.android.component.reusable.CustomCheckbox
                     android:id="@+id/isAsetSPK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.CustomTextEdit
+                    <simart.umby.android.component.reusable.CustomTextEdit
                         android:id="@+id/noSPK"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                         app:title="No SPK"
                         app:hint="No SPK"
                         android:layout_marginEnd="10dp"/>
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/vendor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -139,14 +139,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp">
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/kategoriAset"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="10dp"
                         />
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/subKategoriAset"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -159,14 +159,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/location"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="10dp"
                         />
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/availability"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -179,14 +179,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/convidentality"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="10dp"
                         />
-                    <simart.umby.android.component.custom_bs_picker.CustomBottomSheetPicker
+                    <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
                         android:id="@+id/integrity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -199,13 +199,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.CustomDatePicker
+                    <simart.umby.android.component.reusable.CustomDatePicker
                         android:id="@+id/tanggalAkuisisi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="10dp"/>
-                    <simart.umby.android.component.CustomDatePicker
+                    <simart.umby.android.component.reusable.CustomDatePicker
                         android:id="@+id/tanggalDepresiasi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.CustomTextEdit
+                    <simart.umby.android.component.reusable.CustomTextEdit
                         android:id="@+id/sumberAset"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                         app:title="Sumber Aset"
                         app:hint="Sumber Aset"
                         android:layout_marginEnd="10dp"/>
-                    <simart.umby.android.component.CustomTextEdit
+                    <simart.umby.android.component.reusable.CustomTextEdit
                         android:id="@+id/jumlahAset"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp">
-                    <simart.umby.android.component.CustomTextEdit
+                    <simart.umby.android.component.reusable.CustomTextEdit
                         android:id="@+id/nvb"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
                         app:title="NVB"
                         android:layout_marginEnd="10dp"
                         app:hint="NVB"/>
-                    <simart.umby.android.component.CustomTextEdit
+                    <simart.umby.android.component.reusable.CustomTextEdit
                         android:id="@+id/statusAset"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

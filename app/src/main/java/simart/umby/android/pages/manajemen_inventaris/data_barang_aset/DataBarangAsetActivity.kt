@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import simart.umby.android.adapter.manajemen_inventaris.DataBarangAsetAdapter
+import simart.umby.android.adapter.manajemen_inventaris.DataBarangAsetAdapterInterface
 import simart.umby.android.databinding.ActivityDataBarangAsetBinding
-import simart.umby.android.pages.manajemen_inventaris.data_barang_aset.model.DataBarangAsetModel
+import simart.umby.android.model.manajemen_inventaris.DataBarangAsetModel
 import simart.umby.android.pages.manajemen_inventaris.edit_data_barang_aset.EditDataBarangAsetBS
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils

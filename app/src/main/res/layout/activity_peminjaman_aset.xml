@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.ManajamenAset.Pages.PeminjamanAset.PeminjamanAsetActivity">
+    tools:context=".pages.manajemen_aset.peminjaman_aset.PeminjamanAsetActivity">
 
     <LinearLayout
         android:id="@+id/toolbarLayout"
