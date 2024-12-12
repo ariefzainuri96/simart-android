@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import simart.umby.android.component.reusable.CommonMenuInterface
 import simart.umby.android.databinding.ActivityManajemenAsetBinding
+import simart.umby.android.pages.manajemen_aset.pemindahan_aset.PemindahanAsetActivity
 import simart.umby.android.pages.manajemen_aset.peminjaman_aset.PeminjamanAsetActivity
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.getStatusBarHeight
@@ -63,7 +64,7 @@ class ManajemenAsetActivity : AppCompatActivity() {
 
             setInterface(object : CommonMenuInterface {
                 override fun handleOnClick() {
-                    println("Pemindahan Aset")
+                    startActivity(Intent(this@ManajemenAsetActivity, PemindahanAsetActivity::class.java))
                 }
             })
         }

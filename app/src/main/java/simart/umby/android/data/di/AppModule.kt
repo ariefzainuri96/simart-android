@@ -13,6 +13,8 @@ import simart.umby.android.data.repository.DashboardRepository
 import simart.umby.android.data.repository.DashboardRepositoryImpl
 import simart.umby.android.data.repository.LoginRepository
 import simart.umby.android.data.repository.LoginRepositoryImpl
+import simart.umby.android.data.repository.ManajemenAsetRepository
+import simart.umby.android.data.repository.ManajemenAsetRepositoryImpl
 import simart.umby.android.data.repository.TaskApprovalRepository
 import simart.umby.android.data.repository.TaskApprovalRepositoryImpl
 import java.util.concurrent.TimeUnit
@@ -39,7 +41,7 @@ object AppModule {
         // 9000 -> running port
         // update network_security_config.xml with local ip
         return Retrofit.Builder()
-            .baseUrl("http://192.168.124.187:9000/")
+            .baseUrl("http://192.168.230.202:9000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -62,5 +64,11 @@ object AppModule {
     @Singleton
     fun providedTaskApprovalRepository(api: MyApi): TaskApprovalRepository {
         return TaskApprovalRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providedManajemenAsetRepository(api: MyApi): ManajemenAsetRepository {
+        return ManajemenAsetRepositoryImpl(api)
     }
 }
