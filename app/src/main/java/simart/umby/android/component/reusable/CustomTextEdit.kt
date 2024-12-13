@@ -81,6 +81,15 @@ class CustomTextEdit @JvmOverloads constructor(
         binding.inputLayout.setBoxStrokeColorStateList(myColorList)
     }
 
+    fun setTextEnabled(enabled: Boolean) {
+        binding.textInput.isEnabled = enabled
+    }
+
+    fun setTextLayout(minLine: Int = 1, maxLine: Int = 1) {
+        binding.textInput.minLines = minLine
+        binding.textInput.maxLines = maxLine
+    }
+
     fun getTextInput(): TextInputEditText {
         return binding.textInput
     }

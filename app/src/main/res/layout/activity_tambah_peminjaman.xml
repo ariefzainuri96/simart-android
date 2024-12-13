@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".pages.manajemen_aset.tambah_peminjaman_aset.TambahPeminjamanActivity">
+
+    <LinearLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/primary">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Tambah Peminjaman Aset"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:theme="@style/ToolbarTheme" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/noPeminjaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="No Peminjam"
+                    app:hint="No Peminjaman Aset"/>
+
+                <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
+                    android:id="@+id/tipePeminjam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/noPeminjaman"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/identitasPeminjam"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="16dp"/>
+
+                <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
+                    android:id="@+id/identitasPeminjam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/noPeminjaman"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tipePeminjam"
+                    android:layout_marginTop="16dp"/>
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/namaPeminjam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="Nama Peminjam"
+                    app:hint="Isi Nama Peminjam"
+                    app:layout_constraintTop_toBottomOf="@id/tipePeminjam"
+                    android:layout_marginTop="16dp"/>
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/alamatPeminjam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/namaPeminjam"
+                    android:layout_marginTop="16dp"
+                    android:inputType="textMultiLine"
+                    app:title="Alamat Peminjam"
+                    app:hint="Isi Alamat Peminjam"/>
+
+                <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
+                    android:id="@+id/fakultas"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/alamatPeminjam"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/noTelp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="16dp"/>
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/noTelp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/alamatPeminjam"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fakultas"
+                    app:title="No. HP/Telp"
+                    app:hint="Isi No. HP/Telp"
+                    android:layout_marginTop="16dp"/>
+
+                <simart.umby.android.component.reusable.CustomDatePicker
+                    android:id="@+id/tanggalPinjam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/noTelp"
+                    app:layout_constraintEnd_toStartOf="@id/tanggalKembali"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"/>
+
+                <simart.umby.android.component.reusable.CustomDatePicker
+                    android:id="@+id/tanggalKembali"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/noTelp"
+                    app:layout_constraintStart_toEndOf="@id/tanggalPinjam"
+                    android:layout_marginTop="16dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/lineSeparator2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textDetailPeminjaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Detail Peminjaman"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/sf_pro_400"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    />
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/namaAset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/textDetailPeminjaman"
+                    android:layout_marginTop="16dp"
+                    app:title="Nama Aset"
+                    app:hint="Isi Nama Aset"
+                    android:imeOptions="actionNext"/>
+
+                <simart.umby.android.component.reusable.CustomTextEdit
+                    android:id="@+id/jumlah"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/namaAset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/satuan"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    app:title="Jumlah Aset"
+                    app:hint="Isi Jumlah Aset"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"/>
+
+                <simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPicker
+                    android:id="@+id/satuan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/namaAset"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/jumlah"
+                    android:layout_marginTop="16dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTambahkan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/satuan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    app:strokeColor="@color/primary3"
+                    android:textColor="@color/primary3"
+                    app:cornerRadius="4dp"
+                    android:text="Tambahkan"/>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/detailPeminjamanDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/lineSeparator2"
+                    app:layout_constraintTop_toBottomOf="@id/btnTambahkan"
+                    android:layout_marginTop="16dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailPeminjamanRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/detailPeminjamanDivider"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:nestedScrollingEnabled="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/lineSeparator2" />
+
+<!--            <simart.umby.android.component.reusable.ExpandableView-->
+<!--                android:id="@+id/historyPersetujuanContent"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/historyPersetujuanRV"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
+<!--            </simart.umby.android.component.reusable.ExpandableView>-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -11,7 +11,7 @@
         android:fontFamily="@font/sf_pro_400"
         android:textSize="12sp"
         android:textColor="@color/grey3"
-        android:text="Username"/>
+        android:text="Testing"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout"
@@ -35,6 +35,7 @@
             android:fontFamily="@font/sf_pro_300"
             android:textSize="14sp"
             android:inputType="text"
+            android:gravity="top|start"
             android:textCursorDrawable="@null"
             android:textColor="@color/grey1"
             />

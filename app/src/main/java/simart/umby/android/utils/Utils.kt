@@ -21,7 +21,7 @@ import simart.umby.android.R
 import kotlin.random.Random
 
 enum class ValidationType {
-    EMAIL, PASSWORD
+    EMAIL, PASSWORD, STANDART
 }
 
 class Utils {
@@ -58,6 +58,11 @@ class Utils {
 
                 ValidationType.PASSWORD -> {
                     if (message.isEmpty()) "Password can't be empty"
+                    else null
+                }
+
+                ValidationType.STANDART -> {
+                    if (message.isEmpty()) "Input can't be empty"
                     else null
                 }
             }

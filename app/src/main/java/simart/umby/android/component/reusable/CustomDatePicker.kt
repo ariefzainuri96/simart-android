@@ -21,6 +21,7 @@ class CustomDatePicker @JvmOverloads constructor(
     private var binding: CustomDatePickerBinding =
         CustomDatePickerBinding.inflate(LayoutInflater.from(context), this, true)
     private var customDatePickerInterface: CustomDatePickerInterface? = null
+    private var selectedCalendar: Calendar = Calendar.getInstance()
 
     init {
         binding.datePickerLayout.setOnClickListener {
@@ -29,15 +30,15 @@ class CustomDatePicker @JvmOverloads constructor(
     }
 
     private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year = selectedCalendar.get(Calendar.YEAR)
+        val month = selectedCalendar.get(Calendar.MONTH)
+        val day = selectedCalendar.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(
             context,
             { _, selectedYear, selectedMonth, selectedDayOfMonth ->
                 val date = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
                 customDatePickerInterface?.onDateSelected(date)
+                selectedCalendar.set(selectedYear, selectedMonth, selectedDayOfMonth)
                 binding.date.text = date
             }, year, month, day )
         datePickerDialog.show()
@@ -45,6 +46,11 @@ class CustomDatePicker @JvmOverloads constructor(
 
     fun setTitle(value: String) {
         binding.title.text = value
+    }
+
+    fun setSelectedDate(calendar: Calendar) {
+        selectedCalendar = calendar
+        binding.date.text = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}/${calendar.get(Calendar.YEAR)}"
     }
 
     fun setError(message: String?) {

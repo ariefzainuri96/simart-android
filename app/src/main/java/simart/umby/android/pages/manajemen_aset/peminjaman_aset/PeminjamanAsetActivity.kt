@@ -1,5 +1,6 @@
 package simart.umby.android.pages.manajemen_aset.peminjaman_aset
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import simart.umby.android.adapter.manajemen_aset.PeminjamanAsetAdapter
 import simart.umby.android.databinding.ActivityPeminjamanAsetBinding
+import simart.umby.android.pages.manajemen_aset.tambah_peminjaman_aset.TambahPeminjamanActivity
 import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils
 import simart.umby.android.utils.collectLatestLifeCycleFlow
@@ -53,8 +55,11 @@ class PeminjamanAsetActivity : AppCompatActivity() {
         }
 
         binding.rvPeminjamanAset.adapter = peminjamanAsetAdapter
-
         binding.rvPeminjamanAset.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,
             false)
+
+        binding.btnAddPeminjamanAset.setOnClickListener {
+            startActivity(Intent(this@PeminjamanAsetActivity, TambahPeminjamanActivity::class.java))
+        }
     }
 }
