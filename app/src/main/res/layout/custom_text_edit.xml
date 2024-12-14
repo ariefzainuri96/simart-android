@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -13,19 +12,13 @@
         android:textColor="@color/grey3"
         android:text="Testing"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout"
+    <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxCornerRadiusBottomEnd="4dp"
-        app:boxCornerRadiusBottomStart="4dp"
-        app:boxCornerRadiusTopEnd="4dp"
-        app:boxCornerRadiusTopStart="4dp"
-        app:boxStrokeWidth="1dp"
-        app:boxStrokeWidthFocused="1dp"
-        app:errorTextAppearance="@font/sf_pro_400">
+        android:orientation="vertical"
+        android:background="@drawable/input_border">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input"
             android:layout_width="match_parent"
@@ -38,7 +31,20 @@
             android:gravity="top|start"
             android:textCursorDrawable="@null"
             android:textColor="@color/grey1"
+            android:background="@color/transparent"
+            android:textColorHint="@color/grey3"
             />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sf_pro_400"
+        android:textSize="12sp"
+        android:textColor="@color/red3"
+        android:text=""
+        android:visibility="gone"/>
 </LinearLayout>

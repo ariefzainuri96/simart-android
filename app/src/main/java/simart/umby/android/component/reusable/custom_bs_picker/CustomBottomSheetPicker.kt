@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import simart.umby.android.R
 import simart.umby.android.databinding.CustomBottomSheetPickerBinding
 
 interface CustomBottomSheetPickerInterface {
@@ -21,6 +23,8 @@ class CustomBottomSheetPicker @JvmOverloads constructor(
     private var customBottomSheetPickerInterface: CustomBottomSheetPickerInterface? = null
 
     init {
+        setDefaultContent("Pilih item")
+
         binding.pickerLayout.setOnClickListener {
             customBottomSheetPickerInterface?.showBottomSheet()
         }
@@ -32,6 +36,18 @@ class CustomBottomSheetPicker @JvmOverloads constructor(
 
     fun setContent(value: String) {
         binding.content.text = value
+        binding.content.setTextColor(ContextCompat.getColor(context, R.color.grey1))
+    }
+
+    fun setDefaultContent(value: String) {
+        binding.content.text = value
+        binding.content.setTextColor(ContextCompat.getColor(context, R.color.grey3))
+    }
+
+    fun setError(message: String?) {
+        binding.error.text = message
+        binding.error.visibility = if (message != null) VISIBLE else GONE
+        binding.pickerLayout.setBackgroundResource(if (message != null) R.drawable.error_input_border else R.drawable.input_border)
     }
 
     fun setAction(customBottomSheetPickerInterface: CustomBottomSheetPickerInterface) {

@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/grey1"
+            android:textColor="@color/grey3"
             android:text="01/01/2024"
             android:fontFamily="@font/sf_pro_300"
             android:textSize="14sp"
@@ -48,7 +48,7 @@
         android:layout_marginTop="2dp"
         android:fontFamily="@font/sf_pro_400"
         android:textSize="12sp"
-        android:textColor="@color/red1"
+        android:textColor="@color/red3"
         android:text=""
         android:visibility="gone"/>
 </LinearLayout>

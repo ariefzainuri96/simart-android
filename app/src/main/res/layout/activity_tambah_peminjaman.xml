@@ -230,6 +230,19 @@
 <!--                    android:layout_height="wrap_content" />-->
 <!--            </simart.umby.android.component.reusable.ExpandableView>-->
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSimpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SIMPAN"
+                android:backgroundTint="@color/green2"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sf_pro_600"
+                android:textSize="14sp"
+                app:cornerRadius="4dp"
+                android:layout_margin="16dp"
+                />
+
         </LinearLayout>
 
     </ScrollView>

@@ -18,7 +18,10 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
 import simart.umby.android.R
+import simart.umby.android.model.FormErrorModel
 import kotlin.random.Random
+import kotlin.reflect.KProperty1
+import kotlin.reflect.full.memberProperties
 
 enum class ValidationType {
     EMAIL, PASSWORD, STANDART
@@ -177,6 +180,30 @@ class Utils {
             }
 
             return displayMetrics.heightPixels
+        }
+
+        // Extension function to check all properties of any data class
+        inline fun <reified T : Any> T.checkAllProperties(): List<FormErrorModel> {
+            val errors = mutableListOf<FormErrorModel>()
+
+            for (property in T::class.memberProperties) {
+                if (property is KProperty1<T, *>) {
+                    val value = property.get(this)
+                    if (value is String && value.isEmpty()) {
+                        errors.add(FormErrorModel(key = property.name, error =
+                        "${convertCamelToTitle(property.name)} tidak boleh kosong"))
+                    }
+                }
+            }
+
+            return errors
+        }
+
+        fun convertCamelToTitle(camelCase: String): String {
+            // Use a regular expression to find the capital letters and insert spaces before them
+            val titleCase = camelCase.replace(Regex("([a-z])([A-Z])"), "$1 $2")
+            // Capitalize the first letter of each word
+            return titleCase.split(" ").joinToString(" ") { it.replaceFirstChar { it.uppercase() } }
         }
     }
 }

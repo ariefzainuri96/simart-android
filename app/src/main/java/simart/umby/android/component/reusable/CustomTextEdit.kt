@@ -1,7 +1,6 @@
 package simart.umby.android.component.reusable
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
@@ -21,6 +20,8 @@ class CustomTextEdit @JvmOverloads constructor(
 
     private var binding: CustomTextEditBinding =
         CustomTextEditBinding.inflate(LayoutInflater.from(context), this, true)
+
+    private var error: String? = null
 
     init {
         // Retrieve custom attributes
@@ -44,7 +45,7 @@ class CustomTextEdit @JvmOverloads constructor(
         typedArray.recycle()
 
         // set layout
-        setBoxStrokeColorSelector(borderColor, binding)
+        // setBoxStrokeColorSelector(borderColor, binding)
 
         // Set text for TextViews
         binding.title.text = title
@@ -56,30 +57,43 @@ class CustomTextEdit @JvmOverloads constructor(
         if (obscure) {
             binding.textInput.transformationMethod = PasswordTransformationMethod.getInstance()
         }
+
+        binding.textInput.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.inputLayout.setBackgroundResource(R.drawable.focused_input_border)
+            } else {
+                if (error != null) {
+                    binding.inputLayout.setBackgroundResource(R.drawable.error_input_border)
+                } else {
+                    binding.inputLayout.setBackgroundResource(R.drawable.input_border)
+                }
+
+            }
+        }
     }
 
-    private fun setBoxStrokeColorSelector(borderColor: Int?, binding: CustomTextEditBinding) {
-        //Color from hex string
-        val defaultColor = ContextCompat.getColor(context, R.color.line)
-
-        val states = arrayOf(
-            intArrayOf(android.R.attr.state_focused),  // focused
-            intArrayOf(android.R.attr.state_hovered), // hovered
-            intArrayOf(android.R.attr.state_enabled), // enabled
-            intArrayOf() // default
-        )
-
-        val colors = intArrayOf(
-            borderColor ?: defaultColor, // focused color
-            borderColor ?: defaultColor, // hovered color
-            borderColor ?: defaultColor, // enabled color
-            borderColor ?: defaultColor
-        ) // default color
-
-        val myColorList = ColorStateList(states, colors)
-
-        binding.inputLayout.setBoxStrokeColorStateList(myColorList)
-    }
+//    private fun setBoxStrokeColorSelector(borderColor: Int?, binding: CustomTextEditBinding) {
+//        //Color from hex string
+//        val defaultColor = ContextCompat.getColor(context, R.color.line)
+//
+//        val states = arrayOf(
+//            intArrayOf(android.R.attr.state_focused),  // focused
+//            intArrayOf(android.R.attr.state_hovered), // hovered
+//            intArrayOf(android.R.attr.state_enabled), // enabled
+//            intArrayOf() // default
+//        )
+//
+//        val colors = intArrayOf(
+//            borderColor ?: defaultColor, // focused color
+//            borderColor ?: defaultColor, // hovered color
+//            borderColor ?: defaultColor, // enabled color
+//            borderColor ?: defaultColor
+//        ) // default color
+//
+//        val myColorList = ColorStateList(states, colors)
+//
+//        binding.inputLayout.setBoxStrokeColorStateList(myColorList)
+//    }
 
     fun setTextEnabled(enabled: Boolean) {
         binding.textInput.isEnabled = enabled
@@ -95,7 +109,10 @@ class CustomTextEdit @JvmOverloads constructor(
     }
 
     fun setError(message: String?) {
-        binding.inputLayout.isErrorEnabled = message != null
-        binding.inputLayout.error = message
+        error = message
+        binding.error.text = error
+        binding.error.visibility = if (error != null) VISIBLE else GONE
+        binding.inputLayout.setBackgroundResource(if (error != null) R.drawable.error_input_border
+        else R.drawable.input_border)
     }
 }

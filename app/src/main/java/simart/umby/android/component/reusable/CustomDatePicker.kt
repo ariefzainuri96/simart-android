@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import simart.umby.android.R
 import simart.umby.android.databinding.CustomDatePickerBinding
 import java.util.Calendar
 
@@ -24,6 +25,8 @@ class CustomDatePicker @JvmOverloads constructor(
     private var selectedCalendar: Calendar = Calendar.getInstance()
 
     init {
+        setDefaultDate("Pilih tanggal")
+
         binding.datePickerLayout.setOnClickListener {
             showDatePicker()
         }
@@ -39,7 +42,7 @@ class CustomDatePicker @JvmOverloads constructor(
                 val date = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
                 customDatePickerInterface?.onDateSelected(date)
                 selectedCalendar.set(selectedYear, selectedMonth, selectedDayOfMonth)
-                binding.date.text = date
+                setSelectedDate(selectedCalendar)
             }, year, month, day )
         datePickerDialog.show()
     }
@@ -51,11 +54,19 @@ class CustomDatePicker @JvmOverloads constructor(
     fun setSelectedDate(calendar: Calendar) {
         selectedCalendar = calendar
         binding.date.text = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}/${calendar.get(Calendar.YEAR)}"
+        binding.date.setTextColor(context.getColor(R.color.grey1))
+    }
+
+    fun setDefaultDate(value: String) {
+        binding.date.text = value
+        binding.date.setTextColor(context.getColor(R.color.grey3))
     }
 
     fun setError(message: String?) {
         binding.error.text = message
-        binding.error.visibility = VISIBLE
+        binding.error.visibility = if (message != null) VISIBLE else GONE
+        binding.datePickerLayout.setBackgroundResource(if (message != null) R.drawable.error_input_border
+        else R.drawable.input_border)
     }
 
     fun handleAction(customDatePickerInterface: CustomDatePickerInterface) {

@@ -15,8 +15,9 @@ import simart.umby.android.component.reusable.custom_bs_picker.CustomBSPickerCon
 import simart.umby.android.component.reusable.custom_bs_picker.CustomBSPickerContentInterface
 import simart.umby.android.component.reusable.custom_bs_picker.CustomBottomSheetPickerInterface
 import simart.umby.android.databinding.ActivityTambahPeminjamanBinding
+import simart.umby.android.model.manajemen_aset.DetailPeminjamanAsetForm
+import simart.umby.android.model.manajemen_aset.PeminjamanAsetForm
 import simart.umby.android.utils.Utils
-import simart.umby.android.utils.ValidationType
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 import simart.umby.android.utils.getStatusBarHeight
 
@@ -35,6 +36,28 @@ class TambahPeminjamanActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+
+        observeData()
+    }
+
+    private fun observeData() {
+        collectLatestLifeCycleFlow(viewModel.detailPeminjamanFormError) {
+            binding.namaAset.setError(it.firstOrNull { error -> error.key == "namaAset" }?.error)
+            binding.jumlah.setError(it.firstOrNull { error -> error.key == "jumlah" }?.error)
+            binding.satuan.setError(it.firstOrNull { error -> error.key == "satuan" }?.error)
+        }
+
+        collectLatestLifeCycleFlow(viewModel.formError) {
+            binding.noPeminjaman.setError(it.firstOrNull { error -> error.key == "noPeminjam" }?.error)
+            binding.tipePeminjam.setError(it.firstOrNull { error -> error.key == "tipePeminjam" }?.error)
+            binding.identitasPeminjam.setError(it.firstOrNull { error -> error.key == "identitasPeminjam" }?.error)
+            binding.namaPeminjam.setError(it.firstOrNull { error -> error.key == "namaPeminjam" }?.error)
+            binding.alamatPeminjam.setError(it.firstOrNull { error -> error.key == "alamatPeminjam" }?.error)
+            binding.fakultas.setError(it.firstOrNull { error -> error.key == "fakultas" }?.error)
+            binding.noTelp.setError(it.firstOrNull { error -> error.key == "noTelepon" }?.error)
+            binding.tanggalPinjam.setError(it.firstOrNull { error -> error.key == "tanggalPinjam" }?.error)
+            binding.tanggalKembali.setError(it.firstOrNull { error -> error.key == "tanggalKembali" }?.error)
+        }
     }
 
     private fun setupView() {
@@ -51,26 +74,21 @@ class TambahPeminjamanActivity : AppCompatActivity() {
         binding.detailPeminjamanRV.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         binding.noPeminjaman.apply {
-            setTextEnabled(false)
+            getTextInput().doOnTextChanged { text, _, _, _ ->
+                viewModel.updateForm { copy(noPeminjam = text.toString()) }
+            }
+        }
+
+        binding.btnSimpan.setOnClickListener {
+            if (viewModel.checkFormValid()) {
+                viewModel.updateForm { PeminjamanAsetForm() }
+            }
         }
 
         binding.btnTambahkan.setOnClickListener {
-            println("detailPeminjamanForm -> ${viewModel.detailPeminjamanForm.value}")
-            if (viewModel.detailPeminjamanForm.value.isNotEmpty()) {
+            if (viewModel.checkDetailPeminjamanFormValid()) {
                 detailPeminjamanAdapter.updateData(viewModel.detailPeminjamanForm.value)
-            } else {
-                binding.namaAset.setError(
-                    Utils.Companion.commonInputValidator(
-                        viewModel.detailPeminjamanForm.value.namaAset,
-                        ValidationType.STANDART
-                    )
-                )
-                binding.jumlah.setError(
-                    Utils.Companion.commonInputValidator(
-                        viewModel.detailPeminjamanForm.value.jumlah,
-                        ValidationType.STANDART
-                    )
-                )
+                viewModel.updateDetailPeminjamanForm { DetailPeminjamanAsetForm() }
             }
         }
 
@@ -89,6 +107,7 @@ class TambahPeminjamanActivity : AppCompatActivity() {
                         }
 
                         override fun onItemClick(position: Int) {
+                            viewModel.updateForm { copy(tipePeminjam = viewModel.tipePeminjamList.value[position]) }
                             setContent(viewModel.tipePeminjamList.value[position])
                         }
 
@@ -118,6 +137,7 @@ class TambahPeminjamanActivity : AppCompatActivity() {
                         }
 
                         override fun onItemClick(position: Int) {
+                            viewModel.updateForm { copy(identitasPeminjam = viewModel.identitasPeminjamList.value[position]) }
                             setContent(viewModel.identitasPeminjamList.value[position])
                         }
 
@@ -134,13 +154,6 @@ class TambahPeminjamanActivity : AppCompatActivity() {
 
         binding.namaPeminjam.getTextInput().doOnTextChanged { text, _, _, _ ->
             viewModel.updateForm { copy(namaPeminjam = text.toString()) }
-
-            binding.namaPeminjam.setError(
-                Utils.Companion.commonInputValidator(
-                    text.toString(),
-                    ValidationType.STANDART
-                )
-            )
         }
 
         binding.alamatPeminjam.apply {
@@ -148,13 +161,6 @@ class TambahPeminjamanActivity : AppCompatActivity() {
 
             getTextInput().doOnTextChanged { text, _, _, _ ->
                 viewModel.updateForm { copy(alamatPeminjam = text.toString()) }
-
-                binding.alamatPeminjam.setError(
-                    Utils.Companion.commonInputValidator(
-                        text.toString(),
-                        ValidationType.STANDART
-                    )
-                )
             }
         }
 
@@ -173,6 +179,7 @@ class TambahPeminjamanActivity : AppCompatActivity() {
                         }
 
                         override fun onItemClick(position: Int) {
+                            viewModel.updateForm { copy(fakultas = viewModel.fakultasList.value[position]) }
                             setContent(viewModel.fakultasList.value[position])
                         }
 
@@ -190,13 +197,6 @@ class TambahPeminjamanActivity : AppCompatActivity() {
         binding.noTelp.apply {
             getTextInput().doOnTextChanged { text, _, _, _ ->
                 viewModel.updateForm { copy(noTelepon = text.toString()) }
-
-                binding.noTelp.setError(
-                    Utils.Companion.commonInputValidator(
-                        text.toString(),
-                        ValidationType.STANDART
-                    )
-                )
             }
         }
 
@@ -213,14 +213,18 @@ class TambahPeminjamanActivity : AppCompatActivity() {
             setTitle("Tanggal Kembali")
             handleAction(object : CustomDatePickerInterface {
                 override fun onDateSelected(value: String) {
-                    viewModel.updateForm { copy(tanggalPinjam = value) }
+                    viewModel.updateForm { copy(tanggalKembali = value) }
                 }
             })
         }
 
         binding.satuan.apply {
             collectLatestLifeCycleFlow(viewModel.detailPeminjamanForm) {
-                setContent(if (it.satuan.isEmpty()) "Pilih Satuan" else it.satuan)
+                if (it.satuan.isEmpty()) {
+                    setDefaultContent("Pilih Satuan")
+                } else {
+                    setContent(it.satuan)
+                }
             }
 
             setTitle("Satuan")
