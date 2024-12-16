@@ -189,7 +189,7 @@ class Utils {
             for (property in T::class.memberProperties) {
                 if (property is KProperty1<T, *>) {
                     val value = property.get(this)
-                    if (value is String && value.isEmpty()) {
+                    if (value is String? && value.isNullOrEmpty()) {
                         errors.add(FormErrorModel(key = property.name, error =
                         "${convertCamelToTitle(property.name)} tidak boleh kosong"))
                     }
@@ -197,6 +197,17 @@ class Utils {
             }
 
             return errors
+        }
+
+        inline fun <reified T : Any> T.isObjectEmpty(): Boolean {
+            for (property in T::class.memberProperties) {
+                val value = property.get(this)
+                if (value is String? && !value.isNullOrEmpty()) {
+                    return false
+                }
+            }
+
+            return true
         }
 
         fun convertCamelToTitle(camelCase: String): String {

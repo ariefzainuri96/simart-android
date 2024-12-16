@@ -220,15 +220,42 @@
                 android:layout_height="4dp"
                 android:background="@color/lineSeparator2" />
 
-<!--            <simart.umby.android.component.reusable.ExpandableView-->
-<!--                android:id="@+id/historyPersetujuanContent"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/historyPersetujuanRV"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" />-->
-<!--            </simart.umby.android.component.reusable.ExpandableView>-->
+            <LinearLayout
+                android:id="@+id/historyPersetujuanLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="History Persetujuan"
+                    android:fontFamily="@font/sf_pro_400"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    />
+                <ImageView
+                    android:id="@+id/historyPersetujuanIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_down"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <simart.umby.android.component.reusable.ExpandableView
+                android:id="@+id/historyPersetujuanContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/historyPersetujuanRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    />
+            </simart.umby.android.component.reusable.ExpandableView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSimpan"

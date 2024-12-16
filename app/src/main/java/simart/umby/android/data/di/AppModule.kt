@@ -41,7 +41,7 @@ object AppModule {
         // 9000 -> running port
         // update network_security_config.xml with local ip
         return Retrofit.Builder()
-            .baseUrl("http://192.168.230.202:9000/")
+            .baseUrl("http://192.168.165.161:9000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

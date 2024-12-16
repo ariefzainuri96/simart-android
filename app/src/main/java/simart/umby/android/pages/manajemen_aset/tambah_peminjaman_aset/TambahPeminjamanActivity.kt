@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import simart.umby.android.adapter.manajemen_aset.tambah_peminjaman_aset.DetailPeminjamanAdapter
+import simart.umby.android.adapter.manajemen_aset.tambah_peminjaman_aset.HistoryPersetujuanAdapter
 import simart.umby.android.component.reusable.CustomDatePickerInterface
 import simart.umby.android.component.reusable.custom_bs_picker.CustomBSPickerContent
 import simart.umby.android.component.reusable.custom_bs_picker.CustomBSPickerContentAdapter
@@ -18,6 +19,7 @@ import simart.umby.android.databinding.ActivityTambahPeminjamanBinding
 import simart.umby.android.model.manajemen_aset.DetailPeminjamanAsetForm
 import simart.umby.android.model.manajemen_aset.PeminjamanAsetForm
 import simart.umby.android.utils.Utils
+import simart.umby.android.utils.Utils.Companion.isObjectEmpty
 import simart.umby.android.utils.collectLatestLifeCycleFlow
 import simart.umby.android.utils.getStatusBarHeight
 
@@ -26,6 +28,7 @@ class TambahPeminjamanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTambahPeminjamanBinding
     private val viewModel: TambahPeminjamanVM by viewModels()
     private val detailPeminjamanAdapter = DetailPeminjamanAdapter()
+    private val historyPersetujuanAdapter = HistoryPersetujuanAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,10 @@ class TambahPeminjamanActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
+        collectLatestLifeCycleFlow(viewModel.historyPersetujuan) {
+            historyPersetujuanAdapter.updateData(it)
+        }
+
         collectLatestLifeCycleFlow(viewModel.detailPeminjamanFormError) {
             binding.namaAset.setError(it.firstOrNull { error -> error.key == "namaAset" }?.error)
             binding.jumlah.setError(it.firstOrNull { error -> error.key == "jumlah" }?.error)
@@ -58,6 +65,18 @@ class TambahPeminjamanActivity : AppCompatActivity() {
             binding.tanggalPinjam.setError(it.firstOrNull { error -> error.key == "tanggalPinjam" }?.error)
             binding.tanggalKembali.setError(it.firstOrNull { error -> error.key == "tanggalKembali" }?.error)
         }
+
+        collectLatestLifeCycleFlow(viewModel.detailPeminjamanForm) {
+            if (it.isObjectEmpty()) {
+                binding.namaAset.setTextInput("")
+                binding.jumlah.setTextInput("")
+                binding.satuan.setDefaultContent("Pilih Satuan")
+            }
+
+            if (it.satuan.isNotEmpty()) {
+                binding.satuan.setContent(it.satuan)
+            }
+        }
     }
 
     private fun setupView() {
@@ -70,8 +89,21 @@ class TambahPeminjamanActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.historyPersetujuanRV.adapter = historyPersetujuanAdapter
+        binding.historyPersetujuanRV.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
         binding.detailPeminjamanRV.adapter = detailPeminjamanAdapter
-        binding.detailPeminjamanRV.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.detailPeminjamanRV.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        binding.historyPersetujuanLayout.setOnClickListener {
+            binding.historyPersetujuanContent.toggleExpanded()
+
+            val rotationAngle = if (binding.historyPersetujuanContent.isExpanded) 180f else 0f
+            binding.historyPersetujuanIcon.animate()
+                .rotation(rotationAngle).setDuration(300L).start()
+        }
 
         binding.noPeminjaman.apply {
             getTextInput().doOnTextChanged { text, _, _, _ ->
@@ -219,14 +251,6 @@ class TambahPeminjamanActivity : AppCompatActivity() {
         }
 
         binding.satuan.apply {
-            collectLatestLifeCycleFlow(viewModel.detailPeminjamanForm) {
-                if (it.satuan.isEmpty()) {
-                    setDefaultContent("Pilih Satuan")
-                } else {
-                    setContent(it.satuan)
-                }
-            }
-
             setTitle("Satuan")
             setAction(object : CustomBottomSheetPickerInterface {
                 override fun showBottomSheet() {

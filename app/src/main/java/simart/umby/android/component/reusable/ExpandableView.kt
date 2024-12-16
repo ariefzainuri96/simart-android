@@ -26,12 +26,15 @@ class ExpandableView @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+
         // Assume the first child view is the expandable content
         if (childCount > 0) {
             // the child should contain ViewGroup like LinearLayout, ConstraintLayout, RelativeLayout
             // if want to show more than 1 child
             contentView = getChildAt(0)
             contentView?.visibility = GONE
+        } else {
+            throw IllegalStateException("ExpandableView must have at least one child")
         }
     }
 

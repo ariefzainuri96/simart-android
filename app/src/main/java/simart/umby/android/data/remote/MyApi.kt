@@ -5,6 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import simart.umby.android.data.response.HistoryPersetujuanResponse
 import simart.umby.android.data.response.PemindahanAsetResponse
 import simart.umby.android.data.response.PengumumanResponse
 import simart.umby.android.data.response.PlanetResponse
@@ -22,4 +23,7 @@ interface MyApi {
 
     @GET("pemindahanAset")
     suspend fun getPemindahanAset(): Response<PemindahanAsetResponse>
+
+    @GET("historyPersetujuan")
+    suspend fun getHistoryPersetujuan(): Response<HistoryPersetujuanResponse>
 }

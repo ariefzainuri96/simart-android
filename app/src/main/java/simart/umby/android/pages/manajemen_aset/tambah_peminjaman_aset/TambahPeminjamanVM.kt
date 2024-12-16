@@ -4,20 +4,26 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import simart.umby.android.data.repository.ManajemenAsetRepository
+import simart.umby.android.data.response.HistoryPersetujuanData
 import simart.umby.android.model.FormErrorModel
 import simart.umby.android.model.manajemen_aset.DetailPeminjamanAsetForm
 import simart.umby.android.model.manajemen_aset.PeminjamanAsetForm
+import simart.umby.android.utils.RequestState
 import simart.umby.android.utils.Utils.Companion.checkAllProperties
 import javax.inject.Inject
 import kotlin.collections.listOf
 
 @HiltViewModel
 class TambahPeminjamanVM @Inject constructor(
-    val app: Application
+    val app: Application,
+    val manajemenAsetRepository: ManajemenAsetRepository
 ) : ViewModel() {
     var form = MutableStateFlow(PeminjamanAsetForm()); private set
     var formError = MutableStateFlow(listOf<FormErrorModel>()); private set
@@ -27,6 +33,9 @@ class TambahPeminjamanVM @Inject constructor(
     var identitasPeminjamList = MutableStateFlow(listOf<String>()); private set
     var fakultasList = MutableStateFlow(listOf<String>()); private set
     var satuanList = MutableStateFlow(listOf<String>()); private set
+
+    var historyPersetujuanState = MutableStateFlow(RequestState.IDLE); private set
+    var historyPersetujuan = MutableStateFlow(listOf<HistoryPersetujuanData>()); private set
 
     fun checkFormValid(): Boolean {
         val errors = form.value.checkAllProperties()
@@ -53,6 +62,26 @@ class TambahPeminjamanVM @Inject constructor(
     fun updateDetailPeminjamanForm(update: DetailPeminjamanAsetForm.() -> DetailPeminjamanAsetForm) {
         detailPeminjamanForm.update {
             it.update()
+        }
+    }
+
+    fun getHistoryPersetujuan() {
+        val handler = CoroutineExceptionHandler {_, throwable ->
+            println("Error happening: $throwable")
+
+            historyPersetujuanState.value = RequestState.ERROR
+        }
+
+        historyPersetujuanState.value = RequestState.LOADING
+
+        viewModelScope.launch(handler) {
+            delay(1000L)
+
+            val data = async { manajemenAsetRepository.getHistoryPersetujuan() }.await()
+
+            historyPersetujuan.value = data.body()?.data ?: listOf()
+
+            historyPersetujuanState.value = if (data.isSuccessful) RequestState.SUCCESS else RequestState.ERROR
         }
     }
 
@@ -93,5 +122,6 @@ class TambahPeminjamanVM @Inject constructor(
         getIdentitasPeminjam()
         getFakultas()
         getSatuan()
+        getHistoryPersetujuan()
     }
 }

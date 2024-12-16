@@ -108,6 +108,10 @@ class CustomTextEdit @JvmOverloads constructor(
         return binding.textInput
     }
 
+    fun setTextInput(text: String) {
+        binding.textInput.setText(text)
+    }
+
     fun setError(message: String?) {
         error = message
         binding.error.text = error
